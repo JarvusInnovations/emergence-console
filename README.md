@@ -26,10 +26,10 @@ Simply visit http://yoursite.com/develop with your favorite browser.
 Screenshots
 -----------
 <a href="http://emr.ge/img/screenshots/editor.png" rel="shadowbox[screenshots]" title="View an activity feed before you start coding."><img 
-src="http://emr.ge/img/screenshots/thumbs/small/editor.png"></a> 
+src="https://github.com/JarvusInnovations/Emergence.Editor/raw/master/screenshots/editor.png"></a> 
 <a href="http://emr.ge/img/screenshots/editor2.png" rel="shadowbox[screenshots]" title="Search your code like any other editor."><img 
-src="http://emr.ge/img/screenshots/thumbs/small/editor2.png"></a> 
+src="https://github.com/JarvusInnovations/Emergence.Editor/raw/master/screenshots/editor2.png"></a> 
 <a href="http://emr.ge/img/screenshots/editor3.png" rel="shadowbox[screenshots]" title="Open a difference view of revisions side by side."><img 
-src="http://emr.ge/img/screenshots/thumbs/small/editor3.png"></a> 
+src="https://github.com/JarvusInnovations/Emergence.Editor/raw/master/screenshots/editor3.png"></a> 
 <a href="http://emr.ge/img/screenshots/editor4.png" rel="shadowbox[screenshots]" title="Search your entire site globally through a server-side grep from the comfort of your editor's 
-GUI."><img src="http://emr.ge/img/screenshots/thumbs/small/editor4.png"></a> 
+GUI."><img src="https://github.com/JarvusInnovations/Emergence.Editor/raw/master/screenshots/editor4.png"></a> 
