@@ -1,6 +1,6 @@
 Ext.define('Emergence.Editor.model.File', {
 	extend: 'Ext.data.Model'
-	,idProperty: 'ID'
+	,idProperty: 'href'
     ,fields: [{
     	name: 'ID'
     	,type: 'integer'
