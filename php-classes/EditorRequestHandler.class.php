@@ -39,7 +39,7 @@ class EditorRequestHandler extends RequestHandler {
                 return static::respond('editor');
             }
         }
-    }
+    } 
     
     public static function handleExportRequest()
     {
@@ -99,12 +99,12 @@ class EditorRequestHandler extends RequestHandler {
     {
     	$GLOBALS['Session']->requireAccountLevel('Developer');
     	
-        $files = DB::allRecords(
-            'SELECT MAX(`ID`) as `RID`'
+    	$query = 'SELECT MAX(`ID`) as `RID`'
             .' FROM `_e_files`'
-            //.' WHERE `Handle` LIKE \'%%.php\''
-            .' GROUP BY  `Handle`,`CollectionID`'
-        );
+            .($_REQUEST['MIMEType'] ? 'WHERE `Type` = "' . DB::escape($_REQUEST['MIMEType']) .'"'  : '')
+            .' GROUP BY  `Handle`,`CollectionID`';
+        
+        $files = DB::allRecords($query);
         
         $clc = sprintf('grep -nI "%s"',$_REQUEST['q']);
         
@@ -147,6 +147,7 @@ class EditorRequestHandler extends RequestHandler {
         echo json_encode(array(
         	'success'=> true
         	,'data'	=>	$output
+        	,'query' => $query
         ));
     }
     
@@ -220,16 +221,13 @@ class EditorRequestHandler extends RequestHandler {
     
     public static function handleFileTypesRequest()
     {
-    	$files = DB::allRecords(
-            'SELECT MAX(`ID`) as `RID`'
-            .' FROM `_e_files`'
-            .' GROUP BY  `Handle`,`CollectionID`'
+    	$files = DB::allValues('TYPE',
+            'SELECT DISTINCT TYPE'
+			.' FROM  _e_files '
+			.' WHERE TYPE IS NOT NULL'
+			.' ORDER BY TYPE'
         );
-        
-        $results = explode("\n",$files);
-        
-        $output = array();
-        
+                
 #        foreach($results as $result)
 #        {
 #            $line = explode(':',$result,3);
@@ -252,10 +250,11 @@ class EditorRequestHandler extends RequestHandler {
         
         header('Content-type: application/json');
         echo json_encode(array(
-        	'success'=> false
-        	,'data'	=>	'123'
+        	'success'=> true
+        	,'data'	=>	$files
         ));
     }
+    
     
     static public function handleActivityRequest()
     {
