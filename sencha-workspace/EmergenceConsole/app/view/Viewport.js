@@ -9,7 +9,10 @@ Ext.define('EmergenceConsole.view.Viewport', {
 
     layout: 'card',
 
-    items: {
-    }
+    items: [{
+        xtype: 'sites-container'
+    },{
+        xtype: 'hosts-container'
+    }]
 
 });

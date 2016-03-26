@@ -5,16 +5,13 @@
  */
 Ext.define('EmergenceConsole.Application', {
     extend: 'Ext.app.Application',
-    
+
     name: 'EmergenceConsole',
 
-    stores: [
-        // TODO: add global / shared stores here
+    controllers: [
+        'Sites',
+        'Hosts'
     ],
-    
-    launch: function () {
-        // TODO - Launch the application
-    },
 
     onAppUpdate: function () {
         Ext.Msg.confirm('Application Update', 'This application has an update, reload?',
