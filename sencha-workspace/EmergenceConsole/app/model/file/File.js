@@ -6,7 +6,7 @@ Ext.define('EmergenceConsole.model.file.File', {
     ],
 
     proxy: {
-        type: 'treerecords',
+        type: 'records',
         url: '/develop/json'
     },
 
