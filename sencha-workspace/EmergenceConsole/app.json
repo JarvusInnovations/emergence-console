@@ -3,7 +3,7 @@
      * The application's namespace.
      */
     "name": "EmergenceConsole",
-    
+
     /**
      * The version of the application.
      */
@@ -41,22 +41,22 @@
      * The Sencha Framework for this application: "ext" or "touch".
      */
     "framework": "ext",
-    
+
     /**
      * The toolkit to use. Select either "classic" or "modern".
      */
-    
+
     "toolkit": "classic",
-    
-    
+
+
     /**
      * The name of the theme for this application.
      */
-    
-    
-    "theme": "theme-triton",
-    
-    
+
+
+    "theme": "theme-dev-dark",
+
+
     /**
      * The list of required packages (with optional versions; default is "latest").
      *
@@ -67,7 +67,10 @@
      *      ]
      */
     "requires": [
-        "font-awesome"
+        "font-awesome",
+        "jarvus-apikit",
+        "emergence-apikit",
+        "jarvus-ace"
     ],
 
     /**
@@ -103,9 +106,9 @@
          *      "save": "sass/save.scss"
          *
          */
-         
+
         // "save": "sass/save.scss",
-        
+
         /**
          * Comma-separated list of files or folders containing extra Sass. These
          * files are automatically included in the Sass compilation. By default this
@@ -327,13 +330,13 @@
             "type": "yui"
         }
     },
-    
+
     /**
      * Settings specific to testing builds.
      */
     "testing": {
     },
-    
+
     /**
      * Settings specific to development builds.
      */
@@ -376,7 +379,7 @@
      */
     "bootstrap": {
         "base": "${app.dir}",
-        
+
         "microloader": "bootstrap.js",
         "css": "bootstrap.css"
     },
@@ -421,15 +424,15 @@
      *      }
      *
      */
-    
+
     "output": {
         "base": "${workspace.build.dir}/${build.environment}/${app.name}",
         "appCache": {
             "enable": false
         }
     },
-    
-    
+
+
     /**
     * Controls for localStorage caching
     *   "cache": {
@@ -445,12 +448,12 @@
     *       "deltas": "deltas"
     *   }
     */
-    
+
     "cache": {
         "enable": false,
         "deltas": true
     },
-    
+
 
     /**
      * Used to automatically generate cache.manifest (HTML 5 application cache manifest)
@@ -505,9 +508,9 @@
      * generated inside this directory must be kept intact for proper generation of
      * deltas between updates.
      */
-    
+
     "archivePath": "archive",
-    
+
 
 
     /**
@@ -552,7 +555,7 @@
      *     }
      *
      */
-    
+
 
     /**
      * Uniquely generated id for this application, used as prefix for localStorage keys.
