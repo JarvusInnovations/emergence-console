@@ -7,10 +7,17 @@ Ext.define('EmergenceConsole.controller.Sites', {
         'sites': 'showSitesConsole'
     },
 
+    control: {
+        'sites-menu button': {
+            'click': 'onMenuButtonClick'
+        }
+    },
+
     // controller configuration
     views: [
         'sites.Container',
-        'sites.Toolbar'
+        'sites.Toolbar',
+        'sites.Menu'
     ],
 
     refs: {
@@ -23,5 +30,15 @@ Ext.define('EmergenceConsole.controller.Sites', {
         var me = this;
 
         me.getAppViewport().getLayout().setActiveItem(me.getConsole());
+    },
+
+    onMenuButtonClick: function(button) {
+        var route = button.route;
+
+        console.log(button.text);
+
+        if (route) {
+            this.redirectTo(route);
+        }
     }
 });
