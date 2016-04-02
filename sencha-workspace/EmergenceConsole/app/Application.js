@@ -10,8 +10,23 @@ Ext.define('EmergenceConsole.Application', {
 
     controllers: [
         'Sites',
-        'Hosts'
+        'Hosts',
+
+        'Changes',
+        'Files',
+        'Docs'
     ],
+
+    /*
+    *  check the url for an apiHost parameter and set the API hostname if it exists.
+    */
+    init: function() {
+        var pageParams = Ext.Object.fromQueryString(location.search);
+
+        if (pageParams.apiHost) {
+            Emergence.util.API.setHost(pageParams.apiHost);
+        }
+    },
 
     onAppUpdate: function () {
         Ext.Msg.confirm('Application Update', 'This application has an update, reload?',
