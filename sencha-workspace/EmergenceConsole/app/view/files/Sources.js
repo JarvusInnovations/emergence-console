@@ -3,10 +3,9 @@ Ext.define('EmergenceConsole.view.files.Sources', {
     extend: 'Ext.tree.Panel',
     xtype: 'files-sources',
 
-    rootVisible: true,
+    store: 'files.Sources',
 
-    store: [
-        'files.Sources'
-    ]
+    rootVisible: false
+
 
 });
