@@ -22,7 +22,7 @@ Ext.define('EmergenceConsole.view.files.Container', {
         },{
             xtype: 'files-sources',
             title: 'Sources',
-            flex: 1
+            flex: 3
         }]
     },{
         xtype: 'files-editor',
