@@ -3,6 +3,6 @@ Ext.define('EmergenceConsole.store.changes.ActivityStream', {
     extend: 'Ext.data.Store',
     model: 'EmergenceConsole.model.changes.ActivityEvent',
 
-    pageSize: 25,
-    autoLoad: {start: 0, limit: 25}
+    // TODO: move loading to controller
+    autoload: true
 });
