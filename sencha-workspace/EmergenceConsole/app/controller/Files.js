@@ -34,9 +34,6 @@ Ext.define('EmergenceConsole.controller.Files', {
     showFilesView: function() {
         var me = this;
 
-        console.log(me.getSitesContent());
-        console.log(me.getFilesContainer());
-
         me.getAppViewport().getLayout().setActiveItem(me.getSitesContainer());
         me.getSitesContent().setActiveItem(me.getFilesContainer());
     }
