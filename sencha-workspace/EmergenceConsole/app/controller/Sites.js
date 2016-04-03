@@ -35,8 +35,6 @@ Ext.define('EmergenceConsole.controller.Sites', {
     onMenuButtonClick: function(button) {
         var route = button.route;
 
-        console.log(button.text);
-
         if (route) {
             this.redirectTo(route);
         }
