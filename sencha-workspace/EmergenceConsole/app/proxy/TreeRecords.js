@@ -3,6 +3,8 @@ Ext.define('EmergenceConsole.proxy.TreeRecords', {
     extend: 'Emergence.proxy.Records',
     alias: 'proxy.treerecords',
 
+    connection: 'EmergenceConsole.proxy.API',
+
     //sortParam : false,
 
     buildRequest: function() {
