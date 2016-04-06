@@ -16,7 +16,7 @@ Ext.define('EmergenceConsole.view.files.Container', {
             align: 'stretch'
         },
         items: [{
-            xtype: 'panel',
+            xtype: 'files-openfilesgrid',
             title: 'Open Files',
             flex: 1
         },{
@@ -25,7 +25,9 @@ Ext.define('EmergenceConsole.view.files.Container', {
             flex: 3
         }]
     },{
-        xtype: 'files-editor',
+        xtype: 'container',
+        itemId: 'editor-container',
+        layout: 'card',
         flex: 1
     }]
 
