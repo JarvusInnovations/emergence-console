@@ -5,6 +5,10 @@ Ext.define('EmergenceConsole.view.files.Sources', {
 
     store: 'files.Sources',
 
+    viewConfig: {
+        loadMask: false
+    },
+
     rootVisible: false
 
 
