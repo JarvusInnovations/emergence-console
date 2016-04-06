@@ -5,6 +5,10 @@ Ext.define('EmergenceConsole.view.changes.Grid', {
 
     store: 'changes.ActivityStream',
 
+    viewConfig: {
+        loadMask: false
+    },
+
     columns: [{
         text: 'User',
         dataIndex: 'Author',
