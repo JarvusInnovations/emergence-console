@@ -7,6 +7,13 @@ Ext.define('EmergenceConsole.controller.Changes', {
         'sites/changes': 'showChangesView'
     },
 
+    control: {
+        'changes-container': {
+            'activate': 'onChangesContainerActivate'
+        }
+    },
+
+
     // controller configuration
     stores: [
         'changes.ActivityStream'
@@ -29,11 +36,17 @@ Ext.define('EmergenceConsole.controller.Changes', {
         }
     },
 
+
     // route handlers
     showChangesView: function() {
         var me = this;
 
         me.getAppViewport().getLayout().setActiveItem(me.getSitesContainer());
         me.getSitesContent().setActiveItem(me.getChangesContainer());
+    },
+
+    // event handlers
+    onChangesContainerActivate: function(cnt) {
+        cnt.down('grid').getStore().load();
     }
 });
