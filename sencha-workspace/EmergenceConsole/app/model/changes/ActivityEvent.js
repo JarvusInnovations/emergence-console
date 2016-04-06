@@ -2,11 +2,11 @@
 Ext.define('EmergenceConsole.model.changes.ActivityEvent', {
     extend: 'Ext.data.Model',
     requires: [
-        'Emergence.proxy.Records'
+        'EmergenceConsole.proxy.Records'
     ],
 
     proxy: {
-        type: 'records',
+        type: 'consolerecords',
         url: '/editor/activity',
         idParam: false
     },
