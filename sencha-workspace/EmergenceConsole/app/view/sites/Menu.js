@@ -6,7 +6,8 @@ Ext.define('EmergenceConsole.view.sites.Menu', {
 //    vertical: true,
     defaults: {
         scale: 'small',
-        iconAlign: 'top'
+        iconAlign: 'top',
+        ui: 'menu-button'
     },
 
     items: [{
