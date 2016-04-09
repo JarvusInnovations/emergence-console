@@ -155,9 +155,9 @@ Ext.define('EmergenceConsole.controller.Files', {
         console.log(e);
 
         if (settings.isVisible()) {
-            settings.hide(tool);
+            settings.close(tool);
         } else {
-            settings.show(tool);
+            settings.showBy(tool,'bl',[-settings.width,0]);
         }
     },
 

@@ -11,24 +11,34 @@ Ext.define('EmergenceConsole.view.files.Settings', {
         'Jarvus.ace.field.ShowGutterCheckbox'
     ],
 
-    layout: 'form',
+    layout: 'fit',
     header: false,
     closeAction: 'hide',
-    width: 300,
+    width: 360,
+
+    listeners: {
+        focusleave: function(me) {
+            me.close();
+        }
+    },
 
     items: [{
-        xtype: 'jarvus-ace-field-themecombobox',
-        fieldLabel: 'theme'
-    },{
-        xtype: 'jarvus-ace-field-fontsizecombobox',
-        fieldLabel: 'Font size'
-    },{
-        xtype: 'jarvus-ace-field-keyboardhandlercombobox',
-        fieldLabel: 'keyboard'
-    },{
-        xtype: 'jarvus-ace-field-showinvisiblescheckbox'
-    },{
-        xtype: 'jarvus-ace-field-showguttercheckbox'
+        xtype: 'form',
+        padding: 20,
+        items: [{
+            xtype: 'jarvus-ace-field-themecombobox',
+            fieldLabel: 'theme'
+        },{
+            xtype: 'jarvus-ace-field-fontsizecombobox',
+            fieldLabel: 'Font size'
+        },{
+            xtype: 'jarvus-ace-field-keyboardhandlercombobox',
+            fieldLabel: 'keyboard'
+        },{
+            xtype: 'jarvus-ace-field-showinvisiblescheckbox'
+        },{
+            xtype: 'jarvus-ace-field-showguttercheckbox'
+        }]
     }]
 
 });
