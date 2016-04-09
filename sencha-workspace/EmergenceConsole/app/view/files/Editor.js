@@ -8,19 +8,56 @@ Ext.define('EmergenceConsole.view.files.Editor', {
     ],
 
     config: {
-        path: null
+        path: null,
+        originalValue: null,
+
+        // subcribe to ACE events
+        subscribe: {
+            'Editor': [
+                'change'
+            ],
+            'EditorSession': [
+                'changeMode'
+            ]
+        }
     },
 
-    hasPath: function(path) {
-        return (this.getPath()==path);
+    initAce: function() {
+        var me = this;
+
+        me.callParent();
+
+        // override Ace's default key bindings to intercept save
+        me.getAce().commands.addCommand({
+            name: "save",
+            bindKey: {
+                win: "Ctrl-S",
+                mac: "Command-S",
+                sender: "editor|cli"
+            },
+            exec: Ext.bind(me.fireEvent,me,['saverequest',me])
+        });
+    },
+
+    isDirty: function() {
+        var me = this;
+
+        return me.originalValue!==me.ace.getValue();
     },
 
     loadFile: function(text,contentType) {
-        var ace = this.getAce();
+        var me = this,
+            ace = this.getAce();
 
-        if (text) {
-            ace.setOption('mode',this.getFileMode(contentType));
-            ace.setValue(text,-1);
+        if (ace) {
+            if (text) {
+                ace.setOption('mode',me.getFileMode(contentType));
+                ace.setValue(text,-1);
+                ace.resize();
+            }
+            me.setOriginalValue(text);
+        } else {
+            console.warn('ace editor not available!'); // sanity check: should not arrive here TODO: remove me
         }
     },
 
