@@ -22,7 +22,7 @@ Ext.define('EmergenceConsole.controller.Files', {
     },
 
     control: {
-        'files-sources': {
+        'files-sourcestreepanel': {
             itemdblclick: 'onSourcesItemDblClick',
             itemcontextmenu: 'onSourcesGridContextClick'
         },
@@ -40,6 +40,14 @@ Ext.define('EmergenceConsole.controller.Files', {
             select: 'onOpenFilesGridSelect',
             closefileclick: 'onCloseFileClick',
             savefileclick: 'onSaveFileClick'
+        },
+        'files-foldercontextmenu': {
+        },
+        'files-filecontextmenu menuitem[action="open"]': {
+            click: 'onFileOpenClick'
+        },
+        'files-filecontextmenu menuitem[action="delete"]': {
+            click: 'onFileDeleteClick'
         }
     },
 
@@ -52,11 +60,12 @@ Ext.define('EmergenceConsole.controller.Files', {
     views: [
         'files.Container',
         'files.OpenFilesGrid',
-        'files.Sources',
+        'files.SourcesTreePanel',
         'files.EditorContainer',
         'files.EditorToolbar',
         'files.Settings',
-        'files.SourcesContextMenu'
+        'files.FolderContextMenu',
+        'files.FileContextMenu'
     ],
 
     refs: {
@@ -70,15 +79,21 @@ Ext.define('EmergenceConsole.controller.Files', {
             autoCreate: true
         },
         'openFilesGrid': 'files-openfilesgrid',
+        'sourcesTreePanel': 'files-sourcestreepanel',
         'editorContainer': 'files-editorcontainer',
         'settings' : {
             selector: 'files-settings',
             xtype: 'files-settings',
             autoCreate: true
         },
-        'sourcesMenu' : {
-            selector: 'files-sourcescontextmenu',
-            xtype: 'files-sourcescontextmenu',
+        'folderMenu' : {
+            selector: 'files-foldercontextmenu',
+            xtype: 'files-foldercontextmenu',
+            autoCreate: true
+        },
+        'fileMenu' : {
+            selector: 'files-filecontextmenu',
+            xtype: 'files-filecontextmenu',
             autoCreate: true
         }
     },
@@ -124,22 +139,7 @@ Ext.define('EmergenceConsole.controller.Files', {
     },
 
     onCloseFileClick: function(grid, rec) {
-        var me = this,
-            editorContainer = me.getEditorContainer(),
-            openFilesGrid = me.getOpenFilesGrid(),
-            openFilesStore = openFilesGrid.getStore();
-
-
-        if (openFilesStore.getCount()>0) {
-            openFilesGrid.getSelectionModel().select(1);
-        }
-
-
-        editorContainer.remove(editorContainer.items.get(rec.get('editorId')));
-        openFilesStore.remove(rec);
-
-        this.redirectTo('sites/files');
-
+        this.closeFile(rec.get('path'));
     },
 
     onAceEditorChange: function(editor) {
@@ -167,12 +167,35 @@ Ext.define('EmergenceConsole.controller.Files', {
 
     onSourcesGridContextClick: function(view,rec,item,index,e) {
         var me = this,
-            menu = me.getSourcesMenu();
+            type = rec.get('Class'),
+            menu;
 
         e.preventDefault();
 
-        menu.showAt(e.getXY());
+        if (type == 'SiteCollection') {
+            menu = me.getFolderMenu();
+        } else if (type == 'SiteFile') {
+            menu = me.getFileMenu();
+        }
+
+        if (menu) {
+            menu.setRec(rec);
+            menu.showAt(e.getXY());
+        }
     },
+
+    onFileOpenClick: function(item) {
+        var rec = item.up('menu').getRec();
+
+        this.redirectTo('sites/files/' + rec.get('FullPath'));
+    },
+
+    onFileDeleteClick: function(item) {
+        var rec = item.up('menu').getRec();
+
+        this.deleteFile(rec.get('FullPath'));
+    },
+
 
     // custom controller methods
     openFile: function(path) {
@@ -224,6 +247,25 @@ Ext.define('EmergenceConsole.controller.Files', {
 
     },
 
+    closeFile: function(path) {
+        var me = this,
+            editorContainer = me.getEditorContainer(),
+            openFilesStore =  me.getOpenFilesGrid().getStore(),
+            idx = openFilesStore.find('path',path),
+            rec = openFilesStore.getAt(idx),
+            editor;
+
+        if (rec) {
+            openFilesStore.remove(rec);
+            editor = editorContainer.items.get(rec.get('editorId'));
+        }
+
+        if (editor) {
+            editorContainer.remove(editor);
+        }
+
+    },
+
     saveFile: function(editor) {
         var me = this,
             path = editor.getPath(),
@@ -241,6 +283,45 @@ Ext.define('EmergenceConsole.controller.Files', {
             };
 
         EmergenceConsole.proxy.WebDavAPI.saveFile(path,text,cb);
+    },
+
+    deleteFile: function(path) {
+        var me = this,
+            cb = function(options,success) {
+                if (success) {
+                    me.closeFile(path);
+                    me.refreshParentNode(path);
+                } else {
+                    me.displayError({
+                        name: 'File Deletion Error',
+                        message: 'The file could not be deleted'
+                    });
+                }
+            };
+
+        EmergenceConsole.proxy.WebDavAPI.deleteFile(path,cb);
+    },
+
+    refreshParentNode: function(path) {
+        var store = this.getSourcesTreePanel().getStore();
+            idx = store.find('FullPath',path),
+            rec = store.getAt(idx),
+            parentIdx = store.find('FullPath',rec.get('parentId')),
+            parentRec = store.getAt(parentIdx);
+
+        store.load({
+            node: parentRec
+        });
+    },
+
+    refreshNode: function(path) {
+        var store = this.getSourcesTreePanel().getStore();
+            idx = store.find('FullPath',path),
+            rec = store.getAt(idx);
+
+        store.load({
+            node: rec
+        });
     },
 
     updateOpenFilesDirtyState: function(editor) {
