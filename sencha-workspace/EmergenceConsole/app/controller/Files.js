@@ -23,7 +23,8 @@ Ext.define('EmergenceConsole.controller.Files', {
 
     control: {
         'files-sources': {
-            itemdblclick: 'onSourcesItemDblClick'
+            itemdblclick: 'onSourcesItemDblClick',
+            itemcontextmenu: 'onSourcesGridContextClick'
         },
         'files-editortoolbar button[action="settings"]': {
             click: 'onSettingsClick'
@@ -54,7 +55,8 @@ Ext.define('EmergenceConsole.controller.Files', {
         'files.Sources',
         'files.EditorContainer',
         'files.EditorToolbar',
-        'files.Settings'
+        'files.Settings',
+        'files.SourcesContextMenu'
     ],
 
     refs: {
@@ -72,6 +74,11 @@ Ext.define('EmergenceConsole.controller.Files', {
         'settings' : {
             selector: 'files-settings',
             xtype: 'files-settings',
+            autoCreate: true
+        },
+        'sourcesMenu' : {
+            selector: 'files-sourcescontextmenu',
+            xtype: 'files-sourcescontextmenu',
             autoCreate: true
         }
     },
@@ -147,18 +154,24 @@ Ext.define('EmergenceConsole.controller.Files', {
         this.redirectTo('sites/files/' + rec.get('path'));
     },
 
-    onSettingsClick: function(tool,e) {
+    onSettingsClick: function(tool) {
         var me = this,
             settings = me.getSettings();
-
-        console.log(tool);
-        console.log(e);
 
         if (settings.isVisible()) {
             settings.close(tool);
         } else {
             settings.showBy(tool,'bl',[-settings.width,0]);
         }
+    },
+
+    onSourcesGridContextClick: function(view,rec,item,index,e) {
+        var me = this,
+            menu = me.getSourcesMenu();
+
+        e.preventDefault();
+
+        menu.showAt(e.getXY());
     },
 
     // custom controller methods
