@@ -37,6 +37,8 @@ Ext.define('EmergenceConsole.Application', {
             EmergenceConsole.proxy.API.setHost('test.emergence.local');
             EmergenceConsole.proxy.WebDavAPI.setHost('test.emergence.local');
         }
+
+        Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
     },
 
     onAppUpdate: function () {
