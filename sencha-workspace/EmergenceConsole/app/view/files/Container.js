@@ -25,10 +25,11 @@ Ext.define('EmergenceConsole.view.files.Container', {
             flex: 3
         }]
     },{
-        xtype: 'container',
-        itemId: 'editor-container',
-        layout: 'card',
-        flex: 1
+        xtype: 'files-editorcontainer',
+        flex: 1,
+        items: [{
+            xtype: 'container' // dummy card, helps when removing cards
+        }]
     }]
 
 });
