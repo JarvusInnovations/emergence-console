@@ -5,7 +5,6 @@ Ext.define('EmergenceConsole.view.files.AceConfiguration', {
     config: {
         options: {
             theme: 'ace/theme/kr_theme',
-            mode: 'ace/mode/javascript',
             fontSize: 14,
             highlightActiveLine: false,
             showPrintMargin: false
