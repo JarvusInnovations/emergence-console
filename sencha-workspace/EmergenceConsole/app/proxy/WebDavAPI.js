@@ -92,5 +92,22 @@ Ext.define('EmergenceConsole.proxy.WebDavAPI', {
                 }
             }
         });
+    },
+
+    deleteFile: function(path, cb) {
+        var me = this;
+
+        me.request({
+            method: 'delete',
+            url: me.buildUrl(path),
+            headers: {
+                'Accept': '*/*'
+            },
+            callback: function(options,success,response) {
+                if (cb && Ext.isFunction(cb)) {
+                    cb.call(me,options,success,response);
+                }
+            }
+        });
     }
 });
