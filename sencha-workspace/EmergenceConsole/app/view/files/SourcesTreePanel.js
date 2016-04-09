@@ -1,7 +1,7 @@
 /*jslint browser: true, undef: true *//*global Ext*/
-Ext.define('EmergenceConsole.view.files.Sources', {
+Ext.define('EmergenceConsole.view.files.SourcesTreePanel', {
     extend: 'Ext.tree.Panel',
-    xtype: 'files-sources',
+    xtype: 'files-sourcestreepanel',
 
     store: 'files.Sources',
 
@@ -10,6 +10,4 @@ Ext.define('EmergenceConsole.view.files.Sources', {
     },
 
     rootVisible: false
-
-
 });

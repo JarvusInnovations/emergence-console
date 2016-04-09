@@ -20,7 +20,7 @@ Ext.define('EmergenceConsole.view.files.Container', {
             title: 'Open Files',
             flex: 1
         },{
-            xtype: 'files-sources',
+            xtype: 'files-sourcestreepanel',
             title: 'Sources',
             flex: 3
         }]
