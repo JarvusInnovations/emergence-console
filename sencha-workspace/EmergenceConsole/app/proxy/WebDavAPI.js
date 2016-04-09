@@ -69,7 +69,27 @@ Ext.define('EmergenceConsole.proxy.WebDavAPI', {
                 var text = response.responseText,
                     contentType = response.getResponseHeader('content-type');
 
-                cb.call(this,path,text,contentType);
+                if (cb && Ext.isFunction(cb)) {
+                    cb.call(this,path,text,contentType);
+                }
+            }
+        });
+    },
+
+    saveFile: function(path, text, cb) {
+        var me = this;
+
+        me.request({
+            method: 'put',
+            url: me.buildUrl(path),
+            headers: {
+                'Accept': '*/*'
+            },
+            rawData: text,
+            callback: function(options,success,response) {
+                if (cb && Ext.isFunction(cb)) {
+                    cb.call(me,options,success,response);
+                }
             }
         });
     }
