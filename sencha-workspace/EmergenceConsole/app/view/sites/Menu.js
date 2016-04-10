@@ -3,11 +3,9 @@ Ext.define('EmergenceConsole.view.sites.Menu', {
     extend: 'Ext.toolbar.Toolbar',
     xtype: 'sites-menu',
 
-//    vertical: true,
     defaults: {
         scale: 'small',
-        iconAlign: 'top',
-        ui: 'menu-button'
+        iconAlign: 'top'
     },
 
     items: [{
