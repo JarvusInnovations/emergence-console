@@ -16,7 +16,6 @@ Ext.define('EmergenceConsole.view.sites.Container', {
         dock: 'top'
     },{
         xtype: 'sites-menu',
-        ui: 'menu-toolbar',
         dock: 'left'
     }]
 
