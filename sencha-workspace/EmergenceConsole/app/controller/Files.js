@@ -156,12 +156,18 @@ Ext.define('EmergenceConsole.controller.Files', {
 
     onSettingsClick: function(tool) {
         var me = this,
-            settings = me.getSettings();
+            settings = me.getSettings(),
+            el,x,y;
 
         if (settings.isVisible()) {
             settings.close(tool);
         } else {
-            settings.showBy(tool,'bl',[-settings.width,0]);
+            // Would rather use showBy with offsets here, but it's buggy on combo trigger
+            el = tool.getEl();
+            x = el.getX()-settings.width;
+            y = el.getY()+el.getHeight();
+            settings.showAt(x,y);
+
         }
     },
 
