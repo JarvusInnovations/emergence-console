@@ -14,7 +14,7 @@ Ext.define('EmergenceConsole.view.files.Settings', {
     layout: 'fit',
     header: false,
     closeAction: 'hide',
-    width: 360,
+    width: 260,
 
     listeners: {
         focusleave: function(me) {
@@ -24,7 +24,6 @@ Ext.define('EmergenceConsole.view.files.Settings', {
 
     items: [{
         xtype: 'form',
-        padding: 20,
         items: [{
             xtype: 'jarvus-ace-field-themecombobox',
             fieldLabel: 'theme'
