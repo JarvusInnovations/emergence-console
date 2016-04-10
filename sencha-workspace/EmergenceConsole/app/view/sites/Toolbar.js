@@ -6,6 +6,7 @@ Ext.define('EmergenceConsole.view.sites.Toolbar', {
     items: [{
         xtype: 'combobox',
         fieldLabel: 'Sites',
+        labelAlign: 'right',
         labelWidth: 48,
         store: {
             fields:['value','text'],
