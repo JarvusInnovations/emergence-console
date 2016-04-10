@@ -53,8 +53,7 @@
      * The name of the theme for this application.
      */
 
-
-    "theme": "theme-dev-dark",
+    "theme": "theme-dev-dark-classic",
 
 
     /**
@@ -71,6 +70,7 @@
         "jarvus-apikit",
         "emergence-apikit",
         "jarvus-ext-actionevents",
+        "theme-dev-dark-classic",
         "jarvus-ace"
     ],
 
