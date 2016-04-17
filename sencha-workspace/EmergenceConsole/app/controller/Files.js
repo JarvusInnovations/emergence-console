@@ -47,6 +47,9 @@ Ext.define('EmergenceConsole.controller.Files', {
         'files-filecontextmenu menuitem[action="properties"]': {
             click: 'onFilePropertiesClick'
         },
+        'files-filecontextmenu menuitem[action="rename"]': {
+            click: 'onFileRenameClick'
+        },
         'files-filecontextmenu menuitem[action="delete"]': {
             click: 'onFileDeleteClick'
         }
@@ -210,6 +213,25 @@ Ext.define('EmergenceConsole.controller.Files', {
         win.setTitle(rec.get('Handle'));
         win.down('panel#content').update(rec);
         win.show();
+    },
+
+    onFileRenameClick: function(item) {
+        var me = this,
+            rec = item.up('menu').getRec(),
+            path = rec.get('FullPath'),
+            cb;
+
+        cb = function() {
+            me.refreshParentNode(path);
+        };
+
+        Ext.Msg.prompt('Rename '+rec.get('Handle'), 'Provide a new name:', function(button, value) {
+            if (button == 'ok' && !Ext.isEmpty(value)) {
+                var newPath = rec.parentNode.get('FullPath') + '/' + value;
+                EmergenceConsole.proxy.WebDavAPI.renameNode(path,newPath,cb);
+            }
+        },me,false,rec.get('Handle'));
+
     },
 
     onFileDeleteClick: function(item) {

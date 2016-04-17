@@ -109,5 +109,23 @@ Ext.define('EmergenceConsole.proxy.WebDavAPI', {
                 }
             }
         });
+    },
+
+    renameNode: function(path, newpath, cb) {
+        var me = this;
+
+        me.request({
+            method: 'move',
+            url: me.buildUrl(path),
+            headers: {
+                'Accept': '*/*',
+                'Destination': me.buildUrl(newpath)
+            },
+            callback: function(options,success,response) {
+                if (cb && Ext.isFunction(cb)) {
+                    cb.call(me,options,success,response);
+                }
+            }
+        });
     }
 });
