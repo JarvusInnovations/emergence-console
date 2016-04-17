@@ -14,8 +14,6 @@ Ext.define('EmergenceConsole.controller.Files', {
         'sites/files/:path': {
             action: 'openFile',
             conditions: {
-                //TODO: improve this regex to include more valid characters
-                //':path': "([0-9a-zA-Z\/.-]+)"
                 ':path': "([^\0]+)"
             }
         }
