@@ -164,7 +164,7 @@ Ext.define('EmergenceConsole.controller.Files', {
         } else {
             // Would rather use showBy with offsets here, but it's buggy on combo trigger
             el = tool.getEl();
-            x = el.getX()-settings.width;
+            x = el.getX()-settings.width+el.getWidth();
             y = el.getY()+el.getHeight();
             settings.showAt(x,y);
 
