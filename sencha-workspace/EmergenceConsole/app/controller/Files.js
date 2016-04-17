@@ -44,6 +44,9 @@ Ext.define('EmergenceConsole.controller.Files', {
         'files-filecontextmenu menuitem[action="open"]': {
             click: 'onFileOpenClick'
         },
+        'files-filecontextmenu menuitem[action="properties"]': {
+            click: 'onFilePropertiesClick'
+        },
         'files-filecontextmenu menuitem[action="delete"]': {
             click: 'onFileDeleteClick'
         }
@@ -63,7 +66,8 @@ Ext.define('EmergenceConsole.controller.Files', {
         'files.EditorToolbar',
         'files.Settings',
         'files.FolderContextMenu',
-        'files.FileContextMenu'
+        'files.FileContextMenu',
+        'files.FilePropertiesWindow'
     ],
 
     refs: {
@@ -92,6 +96,11 @@ Ext.define('EmergenceConsole.controller.Files', {
         'fileMenu' : {
             selector: 'files-filecontextmenu',
             xtype: 'files-filecontextmenu',
+            autoCreate: true
+        },
+        'propertiesWindow' : {
+            selector: 'files-propertieswindow',
+            xtype: 'files-propertieswindow',
             autoCreate: true
         }
     },
@@ -192,6 +201,15 @@ Ext.define('EmergenceConsole.controller.Files', {
         var rec = item.up('menu').getRec();
 
         this.redirectTo('sites/files/' + rec.get('FullPath'));
+    },
+
+    onFilePropertiesClick: function(item) {
+        var rec = item.up('menu').getRec(),
+            win = this.getPropertiesWindow();
+
+        win.setTitle(rec.get('Handle'));
+        win.down('panel#content').update(rec);
+        win.show();
     },
 
     onFileDeleteClick: function(item) {
