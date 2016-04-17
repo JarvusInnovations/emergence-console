@@ -10,7 +10,7 @@ Ext.define('EmergenceConsole.view.files.Container', {
 
     items: [{
         xtype: 'container',
-        width: 200,
+        width: 220,
         layout: {
             type: 'vbox',
             align: 'stretch'
