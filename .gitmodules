@@ -14,3 +14,6 @@
 	path = sencha-workspace/packages/jarvus-ext-actionevents
 	url = https://github.com/JarvusInnovations/jarvus-ext-actionevents.git
 	branch = ext/6/0/1/250
+[submodule "ext-6.0.1.250"]
+	path = sencha-workspace/ext-6.0.1.250
+	url = https://github.com/JarvusInnovations/extjs.git
