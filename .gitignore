@@ -1,6 +1,4 @@
 /sencha-workspace/build/
-/sencha-workspace/packages/*/
-/sencha-workspace/ext-*/
 /sencha-workspace/ext/
 /sencha-workspace/EmergenceConsole/bootstrap.*
 /sencha-workspace/EmergenceConsole/sass/example/bootstrap.*
