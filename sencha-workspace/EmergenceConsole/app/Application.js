@@ -10,6 +10,7 @@ Ext.define('EmergenceConsole.Application', {
     name: 'EmergenceConsole',
 
     requires: [
+        'Ext.window.MessageBox',
         'EmergenceConsole.proxy.API',
         'EmergenceConsole.proxy.WebDavAPI'
     ],
