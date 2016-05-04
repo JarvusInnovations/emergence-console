@@ -222,7 +222,21 @@ Ext.define('EmergenceConsole.controller.Files', {
     },
 
     onFolderRenameClick: function(item) {
-        console.log('rename: '+ item.action);
+        var me = this,
+            rec = item.up('menu').getRec(),
+            path = rec.get('FullPath'),
+            cb;
+
+        cb = function() {
+            me.refreshParentNode(path);
+        };
+
+        Ext.Msg.prompt('Rename '+rec.get('Handle'), 'Provide a new name:', function(button, value) {
+            if (button == 'ok' && !Ext.isEmpty(value)) {
+                var newPath = rec.parentNode.get('FullPath') + '/' + value;
+                EmergenceConsole.proxy.WebDavAPI.renameNode(path,newPath,cb);
+            }
+        },me,false,rec.get('Handle'));
     },
 
     onFolderRefreshClick: function(item) {
