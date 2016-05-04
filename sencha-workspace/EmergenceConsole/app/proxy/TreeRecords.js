@@ -33,7 +33,9 @@ Ext.define('EmergenceConsole.proxy.TreeRecords', {
             if (readId=='root') {
                 return baseUrl;
             } else {
-                return baseUrl += '/' + encodeURIComponent(readId);
+                return baseUrl += '/' + readId;
+                // TODO: necessary? wanted? this escapes forward slashes in path... not sure that's a good thing.
+                //return baseUrl += '/' + encodeURIComponent(readId);
             }
         }
 
