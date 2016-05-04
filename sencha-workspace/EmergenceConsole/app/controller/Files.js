@@ -39,11 +39,11 @@ Ext.define('EmergenceConsole.controller.Files', {
             closefileclick: 'onCloseFileClick',
             savefileclick: 'onSaveFileClick'
         },
-        'files-foldercontextmenu menuitem[action="newfolder"]': {
-            click: 'onFolderNewFolderClick'
-        },
         'files-foldercontextmenu menuitem[action="newfile"]': {
             click: 'onFolderNewFileClick'
+        },
+        'files-foldercontextmenu menuitem[action="newfolder"]': {
+            click: 'onFolderNewFolderClick'
         },
         'files-foldercontextmenu menuitem[action="rename"]': {
             click: 'onFolderRenameClick'
