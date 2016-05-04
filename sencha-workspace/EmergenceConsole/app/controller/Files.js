@@ -245,8 +245,8 @@ Ext.define('EmergenceConsole.controller.Files', {
 
         Ext.Msg.prompt('New File', 'Provide a new name:', function(button, value) {
             if (button == 'ok' && !Ext.isEmpty(value)) {
-                var newNode = rec.get('FullPath') + '/' + value;
-                EmergenceConsole.proxy.WebDavAPI.createCollection(newNode,cb);
+                var newCollection = rec.get('FullPath') + '/' + value;
+                EmergenceConsole.proxy.WebDavAPI.createCollection(newCollection,cb);
             }
         },me);
     },
