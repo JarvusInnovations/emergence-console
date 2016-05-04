@@ -214,11 +214,41 @@ Ext.define('EmergenceConsole.controller.Files', {
     },
 
     onFolderNewFileClick: function(item) {
-        console.log('newfile: '+ item.action);
+        var me = this,
+            rec = item.up('menu').getRec(),
+            path = rec.get('FullPath'),
+            cb;
+
+        cb = function(node) {
+            me.refreshNode(path);
+            // TODO: Debug/test/fix file loading after creation
+            me.openFile(node);
+        };
+
+        Ext.Msg.prompt('New File', 'Provide a new name:', function(button, value) {
+            if (button == 'ok' && !Ext.isEmpty(value)) {
+                var newNode = rec.get('FullPath') + '/' + value;
+                EmergenceConsole.proxy.WebDavAPI.createNode(newNode,cb);
+            }
+        },me);
     },
 
     onFolderNewFolderClick: function(item) {
-        console.log('newfolder: '+ item.action);
+        var me = this,
+            rec = item.up('menu').getRec(),
+            path = rec.get('FullPath'),
+            cb;
+
+        cb = function() {
+            me.refreshNode(path);
+        };
+
+        Ext.Msg.prompt('New File', 'Provide a new name:', function(button, value) {
+            if (button == 'ok' && !Ext.isEmpty(value)) {
+                var newNode = rec.get('FullPath') + '/' + value;
+                EmergenceConsole.proxy.WebDavAPI.createCollection(newNode,cb);
+            }
+        },me);
     },
 
     onFolderRenameClick: function(item) {
@@ -404,7 +434,10 @@ Ext.define('EmergenceConsole.controller.Files', {
             parentRec = store.getAt(parentIdx);
 
         store.load({
-            node: parentRec
+            node: parentRec,
+            callback: function() {
+                parentRec.expand();
+            }
         });
     },
 
@@ -414,7 +447,10 @@ Ext.define('EmergenceConsole.controller.Files', {
             rec = store.getAt(idx);
 
         store.load({
-            node: rec
+            node: rec,
+            callback: function() {
+                rec.expand();
+            }
         });
     },
 
