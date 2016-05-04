@@ -39,7 +39,20 @@ Ext.define('EmergenceConsole.controller.Files', {
             closefileclick: 'onCloseFileClick',
             savefileclick: 'onSaveFileClick'
         },
-        'files-foldercontextmenu': {
+        'files-foldercontextmenu menuitem[action="newfolder"]': {
+            click: 'onFolderNewFolderClick'
+        },
+        'files-foldercontextmenu menuitem[action="newfile"]': {
+            click: 'onFolderNewFileClick'
+        },
+        'files-foldercontextmenu menuitem[action="rename"]': {
+            click: 'onFolderRenameClick'
+        },
+        'files-foldercontextmenu menuitem[action="refresh"]': {
+            click: 'onFolderRefreshClick'
+        },
+        'files-foldercontextmenu menuitem[action="delete"]': {
+            click: 'onFolderDeleteClick'
         },
         'files-filecontextmenu menuitem[action="open"]': {
             click: 'onFileOpenClick'
@@ -198,6 +211,26 @@ Ext.define('EmergenceConsole.controller.Files', {
             menu.setRec(rec);
             menu.showAt(e.getXY());
         }
+    },
+
+    onFolderNewFolderClick: function(item) {
+        console.log('newfolder: '+ item.action);
+    },
+
+    onFolderNewFileClick: function(item) {
+        console.log('newfile: '+ item.action);
+    },
+
+    onFolderRenameClick: function(item) {
+        console.log('rename: '+ item.action);
+    },
+
+    onFolderRefreshClick: function(item) {
+        console.log('refresh: '+ item.action);
+    },
+
+    onFolderDeleteClick: function(item) {
+        console.log('delete: '+ item.action);
     },
 
     onFileOpenClick: function(item) {

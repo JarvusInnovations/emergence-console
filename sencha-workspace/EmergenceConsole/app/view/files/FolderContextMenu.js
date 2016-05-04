@@ -10,11 +10,11 @@ Ext.define('EmergenceConsole.view.files.FolderContextMenu', {
     items: [{
         text: 'New File',
         iconCls: 'x-fa fa-file',
-        action: 'newfolder'
+        action: 'newfile'
     },{
         text: 'New Folder',
         iconCls: 'x-fa fa-folder',
-        action: 'newfile'
+        action: 'newfolder'
     },{
         text: 'Rename',
         iconCls: 'x-fa fa-eraser',
