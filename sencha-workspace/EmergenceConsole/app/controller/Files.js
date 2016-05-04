@@ -213,12 +213,12 @@ Ext.define('EmergenceConsole.controller.Files', {
         }
     },
 
-    onFolderNewFolderClick: function(item) {
-        console.log('newfolder: '+ item.action);
-    },
-
     onFolderNewFileClick: function(item) {
         console.log('newfile: '+ item.action);
+    },
+
+    onFolderNewFolderClick: function(item) {
+        console.log('newfolder: '+ item.action);
     },
 
     onFolderRenameClick: function(item) {
