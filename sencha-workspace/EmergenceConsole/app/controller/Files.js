@@ -315,9 +315,14 @@ Ext.define('EmergenceConsole.controller.Files', {
     },
 
     onFileDeleteClick: function(item) {
-        var rec = item.up('menu').getRec();
+        var me = this,
+            rec = item.up('menu').getRec();
 
-        this.deleteFile(rec.get('FullPath'));
+        Ext.Msg.confirm('Delete File', 'Are you sure you want to delete '+rec.get('Handle'), function(buttonId) {
+            if (buttonId == 'yes') {
+                me.deleteFile(rec.get('FullPath'));
+            }
+        },me);
     },
 
 
