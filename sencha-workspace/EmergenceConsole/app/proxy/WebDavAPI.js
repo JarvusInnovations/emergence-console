@@ -139,7 +139,7 @@ Ext.define('EmergenceConsole.proxy.WebDavAPI', {
             },
             callback: function(options,success,response) {
                 if (cb && Ext.isFunction(cb)) {
-                    cb.call(me,options,success,response);
+                    cb.call(me,path,options,success,response);
                 }
             }
         });
