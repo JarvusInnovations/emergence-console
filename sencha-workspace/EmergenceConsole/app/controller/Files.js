@@ -240,7 +240,10 @@ Ext.define('EmergenceConsole.controller.Files', {
     },
 
     onFolderRefreshClick: function(item) {
-        console.log('refresh: '+ item.action);
+        var rec = item.up('menu').getRec(),
+            path = rec.get('FullPath');
+
+        this.refreshNode(path);
     },
 
     onFolderDeleteClick: function(item) {
