@@ -277,7 +277,14 @@ Ext.define('EmergenceConsole.controller.Files', {
     },
 
     onFolderDeleteClick: function(item) {
-        console.log('delete: '+ item.action);
+        var me = this,
+            rec = item.up('menu').getRec();
+
+        Ext.Msg.confirm('Delete Folder', 'Are you sure you want to delete '+rec.get('Handle'), function(buttonId) {
+            if (buttonId == 'yes') {
+                me.deleteFolder(rec.get('FullPath'));
+            }
+        },me);
     },
 
     onFileOpenClick: function(item) {
@@ -428,7 +435,23 @@ Ext.define('EmergenceConsole.controller.Files', {
                 }
             };
 
-        EmergenceConsole.proxy.WebDavAPI.deleteFile(path,cb);
+        EmergenceConsole.proxy.WebDavAPI.deleteNode(path,cb);
+    },
+
+    deleteFolder: function(path) {
+        var me = this,
+            cb = function(options,success) {
+                if (success) {
+                    me.refreshParentNode(path);
+                } else {
+                    me.displayError({
+                        name: 'Folder Deletion Error',
+                        message: 'The folder could not be deleted'
+                    });
+                }
+            };
+
+        EmergenceConsole.proxy.WebDavAPI.deleteNode(path,cb);
     },
 
     refreshParentNode: function(path) {
@@ -446,7 +469,7 @@ Ext.define('EmergenceConsole.controller.Files', {
         });
     },
 
-    refreshNode: function(path) {
+    refreshNode: function(path,expand) {
         var store = this.getSourcesTreePanel().getStore();
             idx = store.find('FullPath',path),
             rec = store.getAt(idx);
@@ -454,7 +477,9 @@ Ext.define('EmergenceConsole.controller.Files', {
         store.load({
             node: rec,
             callback: function() {
-                rec.expand();
+                if (expand) {
+                    rec.expand();
+                }
             }
         });
     },
