@@ -94,7 +94,7 @@ Ext.define('EmergenceConsole.proxy.WebDavAPI', {
         });
     },
 
-    deleteFile: function(path, cb) {
+    deleteNode: function(path, cb) {
         var me = this;
 
         me.request({
