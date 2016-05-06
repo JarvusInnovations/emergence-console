@@ -151,7 +151,7 @@ Ext.define('EmergenceConsole.controller.Files', {
         // clear previous editorIds
         //TODO: function loop bad, convert this to for loop
         openFilesGridStore.each(function(rec) {
-            rec.set('editorId',null);
+            rec.set('editorId', null);
         });
 
     },
@@ -159,11 +159,11 @@ Ext.define('EmergenceConsole.controller.Files', {
     // TODO: this shouldn't be necessary, but corrects bug where first editor loses its options.  fixing bug would be better.
     onEditorActivate: function(editor) {
         // refresh options when editor is activated.
-        editor.getAce().setOptions(Ext.apply({},editor.getConfiguration().getOptions()));
+        editor.getAce().setOptions(Ext.apply({}, editor.getConfiguration().getOptions()));
     },
 
 /*
-    onEditorOptionChange: function(editor,key,val) {
+    onEditorOptionChange: function(editor, key, val) {
         console.log('optionchange: '+key+' set to '+val);
     },
 */
@@ -198,7 +198,7 @@ Ext.define('EmergenceConsole.controller.Files', {
     onSettingsClick: function(tool) {
         var me = this,
             settings = me.getSettings(),
-            el,x,y;
+            el, x, y;
 
         if (settings.isVisible()) {
             settings.close(tool);
@@ -207,12 +207,12 @@ Ext.define('EmergenceConsole.controller.Files', {
             el = tool.getEl();
             x = el.getX()-settings.width+el.getWidth();
             y = el.getY()+el.getHeight();
-            settings.showAt(x,y);
+            settings.showAt(x, y);
 
         }
     },
 
-    onSourcesGridContextClick: function(view,rec,item,index,e) {
+    onSourcesGridContextClick: function(view, rec, item, index, e) {
         var me = this,
             type = rec.get('Class'),
             menu;
@@ -246,9 +246,9 @@ Ext.define('EmergenceConsole.controller.Files', {
         Ext.Msg.prompt('New File', 'Provide a new name:', function(button, value) {
             if (button == 'ok' && !Ext.isEmpty(value)) {
                 var newNode = rec.get('FullPath') + '/' + value;
-                EmergenceConsole.proxy.WebDavAPI.createNode(newNode,cb);
+                EmergenceConsole.proxy.WebDavAPI.createNode(newNode, cb);
             }
-        },me);
+        }, me);
     },
 
     onFolderNewFolderClick: function(item) {
@@ -264,9 +264,9 @@ Ext.define('EmergenceConsole.controller.Files', {
         Ext.Msg.prompt('New File', 'Provide a new name:', function(button, value) {
             if (button == 'ok' && !Ext.isEmpty(value)) {
                 var newCollection = rec.get('FullPath') + '/' + value;
-                EmergenceConsole.proxy.WebDavAPI.createCollection(newCollection,cb);
+                EmergenceConsole.proxy.WebDavAPI.createCollection(newCollection, cb);
             }
-        },me);
+        }, me);
     },
 
     onFolderRenameClick: function(item) {
@@ -281,9 +281,9 @@ Ext.define('EmergenceConsole.controller.Files', {
 
         Ext.Msg.prompt('Rename '+rec.get('Handle'), 'Provide a new name:', function(button, value) {
             if (button == 'ok' && !Ext.isEmpty(value)) {
-                EmergenceConsole.proxy.WebDavAPI.renameNode(path,rec.parentNode.get('FullPath') + '/' + value,cb);
+                EmergenceConsole.proxy.WebDavAPI.renameNode(path, rec.parentNode.get('FullPath') + '/' + value, cb);
             }
-        },me,false,rec.get('Handle'));
+        }, me, false, rec.get('Handle'));
     },
 
     onFolderRefreshClick: function(item) {
@@ -301,7 +301,7 @@ Ext.define('EmergenceConsole.controller.Files', {
             if (buttonId == 'yes') {
                 me.deleteFolder(rec.get('FullPath'));
             }
-        },me);
+        }, me);
     },
 
     onFileOpenClick: function(item) {
@@ -332,9 +332,9 @@ Ext.define('EmergenceConsole.controller.Files', {
         Ext.Msg.prompt('Rename '+rec.get('Handle'), 'Provide a new name:', function(button, value) {
             if (button == 'ok' && !Ext.isEmpty(value)) {
                 var newPath = rec.parentNode.get('FullPath') + '/' + value;
-                EmergenceConsole.proxy.WebDavAPI.renameNode(path,newPath,cb);
+                EmergenceConsole.proxy.WebDavAPI.renameNode(path, newPath, cb);
             }
-        },me,false,rec.get('Handle'));
+        }, me, false, rec.get('Handle'));
 
     },
 
@@ -346,7 +346,7 @@ Ext.define('EmergenceConsole.controller.Files', {
             if (buttonId == 'yes') {
                 me.deleteFile(rec.get('FullPath'));
             }
-        },me);
+        }, me);
     },
 
 
@@ -359,7 +359,7 @@ Ext.define('EmergenceConsole.controller.Files', {
             editorContainer = me.getEditorContainer(),
             openFilesGrid = me.getOpenFilesGrid(),
             openFilesStore = openFilesGrid.getStore(),
-            rec = openFilesStore.findRecord('filePath',path),
+            rec = openFilesStore.findRecord('filePath', path),
             editor;
 
         // check if file is already open
@@ -370,46 +370,46 @@ Ext.define('EmergenceConsole.controller.Files', {
         if (editor) {
             // select file in open files grid
             openFilesGrid.getSelectionModel().select(
-                openFilesGrid.getStore().find('path',path),false,true
+                openFilesGrid.getStore().find('path', path), false, true
             );
             // switch to the open file in the editor
             editorContainer.setActiveItem(editor);
         } else {
             // request file from server
-            EmergenceConsole.proxy.WebDavAPI.getFile(path,Ext.bind(me.openFileCallback,me));
+            EmergenceConsole.proxy.WebDavAPI.getFile(path, Ext.bind(me.openFileCallback, me));
         }
     },
 
-    openFileCallback: function(path,text,contentType) {
+    openFileCallback: function(path, text, contentType) {
         var me = this,
             fileName =  path.substring(path.lastIndexOf('/') + 1),
             editorContainer = me.getEditorContainer(),
             openFilesGrid = me.getOpenFilesGrid(),
             openFilesStore = openFilesGrid.getStore(),
-            rec = openFilesStore.findRecord('filePath',path),
-            editor = Ext.create('EmergenceConsole.view.files.Editor',{path: path});
+            rec = openFilesStore.findRecord('filePath', path),
+            editor = Ext.create('EmergenceConsole.view.files.Editor', {path: path});
 
         if (rec) {
             // record exists in open files store, update the editorId
-            rec.set('editorId',editor.id);
+            rec.set('editorId', editor.id);
         } else {
             // record does not exist, create it.
-            rec = Ext.create('EmergenceConsole.model.file.OpenFile',{
+            rec = Ext.create('EmergenceConsole.model.file.OpenFile', {
                 fileName: fileName,
                 filePath: path,
                 editorId: editor.id
             });
-            // add rec to store, sync with local storage proxy, and select it in grid
+            // add rec to store
             openFilesStore.add(rec);
         }
 
         // sync with local storage proxy, and select rec in grid
         openFilesStore.sync();
-        openFilesGrid.getSelectionModel().select(rec,false,true);
+        openFilesGrid.getSelectionModel().select(rec, false, true);
 
         // add editor to view and load the file contents
         editorContainer.setActiveItem(editor);
-        editor.loadFile(text,contentType);
+        editor.loadFile(text, contentType);
 
     },
 
@@ -418,7 +418,7 @@ Ext.define('EmergenceConsole.controller.Files', {
             editorContainer = me.getEditorContainer(),
             openFilesGrid = me.getOpenFilesGrid(),
             openFilesStore =  openFilesGrid.getStore(),
-            rec = openFilesStore.findRecord('filePath',path),
+            rec = openFilesStore.findRecord('filePath', path),
             recIndex = openFilesStore.indexOf(rec),
             selectedIndex = openFilesStore.indexOf(openFilesGrid.getSelectionModel().getSelection()[0]),
             editor;
@@ -444,7 +444,7 @@ Ext.define('EmergenceConsole.controller.Files', {
         var me = this,
             path = editor.getPath(),
             text = editor.getAce().getValue(),
-            cb = function(options,success) {
+            cb = function(options, success) {
                 if (success) {
                     editor.setOriginalValue(text);
                     me.updateOpenFilesDirtyState(editor);
@@ -456,12 +456,12 @@ Ext.define('EmergenceConsole.controller.Files', {
                 }
             };
 
-        EmergenceConsole.proxy.WebDavAPI.saveFile(path,text,cb);
+        EmergenceConsole.proxy.WebDavAPI.saveFile(path, text, cb);
     },
 
     deleteFile: function(path) {
         var me = this,
-            cb = function(options,success) {
+            cb = function(options, success) {
                 if (success) {
                     me.closeFile(path);
                     me.refreshParentNode(path);
@@ -473,12 +473,12 @@ Ext.define('EmergenceConsole.controller.Files', {
                 }
             };
 
-        EmergenceConsole.proxy.WebDavAPI.deleteNode(path,cb);
+        EmergenceConsole.proxy.WebDavAPI.deleteNode(path, cb);
     },
 
     deleteFolder: function(path) {
         var me = this,
-            cb = function(options,success) {
+            cb = function(options, success) {
                 if (success) {
                     me.refreshParentNode(path);
                 } else {
@@ -489,14 +489,14 @@ Ext.define('EmergenceConsole.controller.Files', {
                 }
             };
 
-        EmergenceConsole.proxy.WebDavAPI.deleteNode(path,cb);
+        EmergenceConsole.proxy.WebDavAPI.deleteNode(path, cb);
     },
 
     refreshParentNode: function(path) {
         var store = this.getSourcesTreePanel().getStore();
-            idx = store.find('FullPath',path),
+            idx = store.find('FullPath', path),
             rec = store.getAt(idx),
-            parentIdx = store.find('FullPath',rec.get('parentId')),
+            parentIdx = store.find('FullPath', rec.get('parentId')),
             parentRec = store.getAt(parentIdx);
 
         store.load({
@@ -507,9 +507,9 @@ Ext.define('EmergenceConsole.controller.Files', {
         });
     },
 
-    refreshNode: function(path,expand) {
+    refreshNode: function(path, expand) {
         var store = this.getSourcesTreePanel().getStore();
-            idx = store.find('FullPath',path),
+            idx = store.find('FullPath', path),
             rec = store.getAt(idx);
 
         store.load({
@@ -525,11 +525,11 @@ Ext.define('EmergenceConsole.controller.Files', {
     updateOpenFilesDirtyState: function(editor) {
         var me = this,
             openFilesStore = me.getOpenFilesGrid().getStore(),
-            idx = openFilesStore.find('editorId',editor.id),
+            idx = openFilesStore.find('editorId', editor.id),
             rec = openFilesStore.getAt(idx);
 
         if (rec) {
-            rec.set('dirty',editor.isDirty());
+            rec.set('dirty', editor.isDirty());
         }
     },
 

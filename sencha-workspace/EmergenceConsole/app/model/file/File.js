@@ -51,7 +51,7 @@ Ext.define('EmergenceConsole.model.file.File', {
     },{
         name: 'text',
         type: 'string',
-        convert: function(v,r) {
+        convert: function(v, r) {
             var handle = r.get('Handle');
 
             if (handle) {
@@ -63,7 +63,7 @@ Ext.define('EmergenceConsole.model.file.File', {
     },{
         name: 'leaf',
         type: 'boolean',
-        convert: function(v,r) {
+        convert: function(v, r) {
             return (r.get('Class')=='SiteFile'?true:false);
         }
     }]

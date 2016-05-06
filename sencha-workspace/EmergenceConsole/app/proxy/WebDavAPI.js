@@ -70,7 +70,7 @@ Ext.define('EmergenceConsole.proxy.WebDavAPI', {
                     contentType = response.getResponseHeader('content-type');
 
                 if (cb && Ext.isFunction(cb)) {
-                    cb.call(this,path,text,contentType);
+                    cb.call(this, path, text, contentType);
                 }
             }
         });
@@ -86,9 +86,9 @@ Ext.define('EmergenceConsole.proxy.WebDavAPI', {
                 'Accept': '*/*'
             },
             rawData: text,
-            callback: function(options,success,response) {
+            callback: function(options, success, response) {
                 if (cb && Ext.isFunction(cb)) {
-                    cb.call(me,options,success,response);
+                    cb.call(me, options, success, response);
                 }
             }
         });
@@ -103,9 +103,9 @@ Ext.define('EmergenceConsole.proxy.WebDavAPI', {
             headers: {
                 'Accept': '*/*'
             },
-            callback: function(options,success,response) {
+            callback: function(options, success, response) {
                 if (cb && Ext.isFunction(cb)) {
-                    cb.call(me,options,success,response);
+                    cb.call(me, options, success, response);
                 }
             }
         });
@@ -120,9 +120,9 @@ Ext.define('EmergenceConsole.proxy.WebDavAPI', {
             headers: {
                 'Accept': '*/*'
             },
-            callback: function(options,success,response) {
+            callback: function(options, success, response) {
                 if (cb && Ext.isFunction(cb)) {
-                    cb.call(me,path,options,success,response);
+                    cb.call(me, path, options, success, response);
                 }
             }
         });
@@ -137,9 +137,9 @@ Ext.define('EmergenceConsole.proxy.WebDavAPI', {
             headers: {
                 'Accept': '*/*'
             },
-            callback: function(options,success,response) {
+            callback: function(options, success, response) {
                 if (cb && Ext.isFunction(cb)) {
-                    cb.call(me,path,options,success,response);
+                    cb.call(me, path, options, success, response);
                 }
             }
         });
@@ -155,9 +155,9 @@ Ext.define('EmergenceConsole.proxy.WebDavAPI', {
                 'Accept': '*/*',
                 'Destination': me.buildUrl(newpath)
             },
-            callback: function(options,success,response) {
+            callback: function(options, success, response) {
                 if (cb && Ext.isFunction(cb)) {
-                    cb.call(me,options,success,response);
+                    cb.call(me, options, success, response);
                 }
             }
         });
