@@ -3,7 +3,7 @@ Ext.define('EmergenceConsole.view.files.OpenFilesGrid', {
     extend: 'Ext.grid.Panel',
     xtype: 'files-openfilesgrid',
 
-    require: [
+    requires: [
         'EmergenceConsole.store.files.OpenFiles'
     ],
 
