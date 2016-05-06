@@ -281,8 +281,7 @@ Ext.define('EmergenceConsole.controller.Files', {
 
         Ext.Msg.prompt('Rename '+rec.get('Handle'), 'Provide a new name:', function(button, value) {
             if (button == 'ok' && !Ext.isEmpty(value)) {
-                var newPath = rec.parentNode.get('FullPath') + '/' + value;
-                EmergenceConsole.proxy.WebDavAPI.renameNode(path,newPath,cb);
+                EmergenceConsole.proxy.WebDavAPI.renameNode(path,rec.parentNode.get('FullPath') + '/' + value,cb);
             }
         },me,false,rec.get('Handle'));
     },
