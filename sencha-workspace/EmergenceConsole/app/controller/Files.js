@@ -400,8 +400,11 @@ Ext.define('EmergenceConsole.controller.Files', {
     closeFile: function(path) {
         var me = this,
             editorContainer = me.getEditorContainer(),
-            openFilesStore =  me.getOpenFilesGrid().getStore(),
+            openFilesGrid = me.getOpenFilesGrid(),
+            openFilesStore =  openFilesGrid.getStore(),
             rec = openFilesStore.findRecord('filePath',path),
+            recIndex = openFilesStore.indexOf(rec),
+            selectedIndex = openFilesStore.indexOf(openFilesGrid.getSelectionModel().getSelection()[0]),
             editor;
 
         if (rec) {
@@ -412,6 +415,11 @@ Ext.define('EmergenceConsole.controller.Files', {
 
         if (editor) {
             editorContainer.remove(editor);
+        }
+
+        if (recIndex == selectedIndex) {
+            // the file that was closed was selected, so select the previous file
+            openFilesGrid.getSelectionModel().select(selectedIndex-1);
         }
 
     },
