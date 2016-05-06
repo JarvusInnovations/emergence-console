@@ -143,9 +143,17 @@ Ext.define('EmergenceConsole.controller.Files', {
     // event handlers
     onFilesContainerRender: function() {
         var me = this,
-            openFilesGrid = me.getOpenFilesGrid();
+            openFilesGridStore = me.getOpenFilesGrid().getStore();
 
-        openFilesGrid.getStore().load();
+        // load previously opened files from local storage proxy
+        openFilesGridStore.load();
+
+        // clear previous editorIds
+        //TODO: function loop bad, convert this to for loop
+        openFilesGridStore.each(function(rec) {
+            rec.set('editorId',null);
+        });
+
     },
 
     // TODO: this shouldn't be necessary, but corrects bug where first editor loses its options.  fixing bug would be better.
@@ -379,15 +387,24 @@ Ext.define('EmergenceConsole.controller.Files', {
             editorContainer = me.getEditorContainer(),
             openFilesGrid = me.getOpenFilesGrid(),
             openFilesStore = openFilesGrid.getStore(),
-            editor = Ext.create('EmergenceConsole.view.files.Editor',{path: path}),
+            rec = openFilesStore.findRecord('filePath',path),
+            editor = Ext.create('EmergenceConsole.view.files.Editor',{path: path});
+
+        if (rec) {
+            // record exists in open files store, update the editorId
+            rec.set('editorId',editor.id);
+        } else {
+            // record does not exist, create it.
             rec = Ext.create('EmergenceConsole.model.file.OpenFile',{
                 fileName: fileName,
                 filePath: path,
                 editorId: editor.id
             });
+            // add rec to store, sync with local storage proxy, and select it in grid
+            openFilesStore.add(rec);
+        }
 
-        // add rec to store, sync with local storage proxy, and select it in grid
-        openFilesStore.add(rec);
+        // sync with local storage proxy, and select rec in grid
         openFilesStore.sync();
         openFilesGrid.getSelectionModel().select(rec,false,true);
 
