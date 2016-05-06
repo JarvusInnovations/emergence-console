@@ -20,6 +20,9 @@ Ext.define('EmergenceConsole.controller.Files', {
     },
 
     control: {
+        'files-container': {
+            render: 'onFilesContainerRender'
+        },
         'files-sourcestreepanel': {
             itemdblclick: 'onSourcesItemDblClick',
             itemcontextmenu: 'onSourcesGridContextClick'
@@ -138,6 +141,13 @@ Ext.define('EmergenceConsole.controller.Files', {
 
 
     // event handlers
+    onFilesContainerRender: function() {
+        var me = this,
+            openFilesGrid = me.getOpenFilesGrid();
+
+        openFilesGrid.getStore().load();
+    },
+
     // TODO: this shouldn't be necessary, but corrects bug where first editor loses its options.  fixing bug would be better.
     onEditorActivate: function(editor) {
         // refresh options when editor is activated.
@@ -162,7 +172,7 @@ Ext.define('EmergenceConsole.controller.Files', {
     },
 
     onCloseFileClick: function(grid, rec) {
-        this.closeFile(rec.get('path'));
+        this.closeFile(rec.get('filePath'));
     },
 
     onAceEditorChange: function(editor) {
@@ -174,7 +184,7 @@ Ext.define('EmergenceConsole.controller.Files', {
     },
 
     onOpenFilesGridSelect: function(grid, rec) {
-        this.redirectTo('sites/files/' + rec.get('path'));
+        this.redirectTo('sites/files/' + rec.get('filePath'));
     },
 
     onSettingsClick: function(tool) {
@@ -341,23 +351,24 @@ Ext.define('EmergenceConsole.controller.Files', {
         var me = this,
             editorContainer = me.getEditorContainer(),
             openFilesGrid = me.getOpenFilesGrid(),
-            openFiles= editorContainer.getOpenFiles(),
-            openFilesLength = openFiles.length,
-            i=0,
+            openFilesStore = openFilesGrid.getStore(),
+            rec = openFilesStore.findRecord('filePath',path),
             editor;
 
-        for (; i < openFilesLength; i++) {
-            if (openFiles[i].path == path) {
-                editor = editorContainer.items.get(openFiles[i].editorId);
-            }
+        // check if file is already open
+        if (rec) {
+            editor = editorContainer.items.get(rec.get('editorId'));
         }
 
         if (editor) {
+            // select file in open files grid
             openFilesGrid.getSelectionModel().select(
                 openFilesGrid.getStore().find('path',path),false,true
             );
+            // switch to the open file in the editor
             editorContainer.setActiveItem(editor);
         } else {
+            // request file from server
             EmergenceConsole.proxy.WebDavAPI.getFile(path,Ext.bind(me.openFileCallback,me));
         }
     },
@@ -367,19 +378,22 @@ Ext.define('EmergenceConsole.controller.Files', {
             fileName =  path.substring(path.lastIndexOf('/') + 1),
             editorContainer = me.getEditorContainer(),
             openFilesGrid = me.getOpenFilesGrid(),
+            openFilesStore = openFilesGrid.getStore(),
             editor = Ext.create('EmergenceConsole.view.files.Editor',{path: path}),
-            ref = {
+            rec = Ext.create('EmergenceConsole.model.file.OpenFile',{
                 fileName: fileName,
-                path: path,
+                filePath: path,
                 editorId: editor.id
-            };
+            });
 
+        // add rec to store, sync with local storage proxy, and select it in grid
+        openFilesStore.add(rec);
+        openFilesStore.sync();
+        openFilesGrid.getSelectionModel().select(rec,false,true);
+
+        // add editor to view and load the file contents
         editorContainer.setActiveItem(editor);
-        editorContainer.getOpenFiles().push(ref);
         editor.loadFile(text,contentType);
-
-        // add ref to open files grid and select it
-        openFilesGrid.getSelectionModel().select(openFilesGrid.getStore().add(ref),false,true);
 
     },
 
@@ -387,12 +401,12 @@ Ext.define('EmergenceConsole.controller.Files', {
         var me = this,
             editorContainer = me.getEditorContainer(),
             openFilesStore =  me.getOpenFilesGrid().getStore(),
-            idx = openFilesStore.find('path',path),
-            rec = openFilesStore.getAt(idx),
+            rec = openFilesStore.findRecord('filePath',path),
             editor;
 
         if (rec) {
             openFilesStore.remove(rec);
+            openFilesStore.sync();
             editor = editorContainer.items.get(rec.get('editorId'));
         }
 

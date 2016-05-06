@@ -3,14 +3,17 @@ Ext.define('EmergenceConsole.view.files.OpenFilesGrid', {
     extend: 'Ext.grid.Panel',
     xtype: 'files-openfilesgrid',
 
+    require: [
+        'EmergenceConsole.store.files.OpenFiles'
+    ],
+
     hideHeaders: true,
     viewConfig: {
         loadMask: false
     },
 
     store: {
-        fields: ['fileName','path','editorId','dirty'],
-        sorters: ['fileName']
+        xclass: 'EmergenceConsole.store.files.OpenFiles'
     },
 
     columns: [{
