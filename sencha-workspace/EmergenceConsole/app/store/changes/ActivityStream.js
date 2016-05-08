@@ -1,8 +1,5 @@
 /*jslint browser: true, undef: true *//*global Ext*/
 Ext.define('EmergenceConsole.store.changes.ActivityStream', {
     extend: 'Ext.data.Store',
-    model: 'EmergenceConsole.model.changes.ActivityEvent',
-
-    // TODO: move loading to controller
-    autoload: true
+    model: 'EmergenceConsole.model.changes.ActivityEvent'
 });
