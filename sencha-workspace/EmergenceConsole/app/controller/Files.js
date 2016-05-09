@@ -144,6 +144,7 @@ Ext.define('EmergenceConsole.controller.Files', {
         var me = this,
             openFilesGridStore = me.getOpenFilesGrid().getStore();
 
+        // load previously opened files from local storage proxy
         openFilesGridStore.load();
 
         // clear previous editorIds
