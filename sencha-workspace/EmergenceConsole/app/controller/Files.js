@@ -33,10 +33,8 @@ Ext.define('EmergenceConsole.controller.Files', {
         },
         'files-editor': {
             activate: 'onEditorActivate',
- //           optionchange: 'onEditorOptionChange',
             saverequest: 'onEditorSaveRequest',
-            editorchange: 'onAceEditorChange',
-            editorsessionchangemode: 'onAceModeChange'
+            editorchange: 'onAceEditorChange'
         },
         'files-openfilesgrid': {
             select: 'onOpenFilesGridSelect',
@@ -169,12 +167,6 @@ Ext.define('EmergenceConsole.controller.Files', {
         editor.getAce().setOptions(Ext.apply({}, editor.getConfiguration().getOptions()));
     },
 
-/*
-    onEditorOptionChange: function(editor, key, val) {
-        console.log('optionchange: '+key+' set to '+val);
-    },
-*/
-
     onSaveFileClick: function(grid, rec) {
         var me = this,
             editor = me.getEditorContainer().items.get(rec.get('editorId'));
@@ -192,10 +184,6 @@ Ext.define('EmergenceConsole.controller.Files', {
 
     onAceEditorChange: function(editor) {
         this.updateOpenFilesDirtyState(editor);
-    },
-
-    onAceModeChange: function() {
-        //console.log('onAceModeChange');
     },
 
     onOpenFilesGridSelect: function(grid, rec) {
