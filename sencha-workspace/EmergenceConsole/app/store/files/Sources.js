@@ -4,8 +4,10 @@ Ext.define('EmergenceConsole.store.files.Sources', {
 
     model: 'EmergenceConsole.model.file.File',
 
+    autoLoad: false,
+
     root: {
-        expanded: true
+        expanded: false
     }
 
 });

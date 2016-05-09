@@ -24,6 +24,7 @@ Ext.define('EmergenceConsole.controller.Files', {
             render: 'onFilesContainerRender'
         },
         'files-sourcestreepanel': {
+            render: 'onSourcesTreePanelRender',
             itemdblclick: 'onSourcesItemDblClick',
             itemcontextmenu: 'onSourcesGridContextClick'
         },
@@ -145,7 +146,6 @@ Ext.define('EmergenceConsole.controller.Files', {
         var me = this,
             openFilesGridStore = me.getOpenFilesGrid().getStore();
 
-        // load previously opened files from local storage proxy
         openFilesGridStore.load();
 
         // clear previous editorIds
@@ -154,6 +154,13 @@ Ext.define('EmergenceConsole.controller.Files', {
             rec.set('editorId', null);
         });
 
+    },
+
+    onSourcesTreePanelRender: function(panel) {
+        // Setting root expanded will load the store
+        panel.getStore().setRoot({
+            expanded: true
+        });
     },
 
     // TODO: this shouldn't be necessary, but corrects bug where first editor loses its options.  fixing bug would be better.
