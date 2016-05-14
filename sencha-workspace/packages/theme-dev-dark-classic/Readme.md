@@ -1,2 +1,0 @@
-# theme-dev-dark-classic
-
