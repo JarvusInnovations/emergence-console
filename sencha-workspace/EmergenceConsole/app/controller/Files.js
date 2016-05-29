@@ -124,6 +124,18 @@ Ext.define('EmergenceConsole.controller.Files', {
     },
 
 
+    init: function() {
+        var me = this,
+            ace = window.ace;
+
+        if (ace) {
+            ace.config.loadModule('ace/ext/whitespace', function(whitespace) {
+                me.whitespace = whitespace;
+            });
+        }
+    },
+
+
     // route handlers
     showFilesView: function() {
         var me = this;
@@ -439,20 +451,27 @@ Ext.define('EmergenceConsole.controller.Files', {
     saveFile: function(editor) {
         var me = this,
             path = editor.getPath(),
-            text = editor.getAce().getValue(),
-            cb = function(options, success) {
-                if (success) {
-                    editor.setOriginalValue(text);
-                    me.updateOpenFilesDirtyState(editor);
-                } else {
-                    me.displayError({
-                        name: 'File Save Error',
-                        message: 'The file could not be saved'
-                    });
-                }
-            };
+            ace = editor.getAce(),
+            whitespace = me.whitespace,
+            text;
 
-        EmergenceConsole.proxy.WebDavAPI.saveFile(path, text, cb);
+        if (whitespace) {
+            whitespace.trimTrailingSpace(ace.getSession(), true);
+        }
+
+        text = ace.getValue();
+
+        EmergenceConsole.proxy.WebDavAPI.saveFile(path, text, function(options, success) {
+            if (success) {
+                editor.setOriginalValue(text);
+                me.updateOpenFilesDirtyState(editor);
+            } else {
+                me.displayError({
+                    name: 'File Save Error',
+                    message: 'The file could not be saved'
+                });
+            }
+        });
     },
 
     deleteFile: function(path) {
