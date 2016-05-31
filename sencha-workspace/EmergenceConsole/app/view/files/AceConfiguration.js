@@ -4,10 +4,12 @@ Ext.define('EmergenceConsole.view.files.AceConfiguration', {
 
     config: {
         options: {
-            theme: 'ace/theme/kr_theme',
+            theme: 'ace/theme/chaos',
             fontSize: 14,
-            highlightActiveLine: false,
-            showPrintMargin: false
+            highlightActiveLine: true,
+            showPrintMargin: true,
+            showInvisibles: true,
+            showGutter: true
         }
     }
 });
