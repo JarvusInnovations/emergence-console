@@ -22,8 +22,11 @@ Ext.define('EmergenceConsole.view.files.Container', {
         },{
             xtype: 'files-sourcestreepanel',
             title: 'Sources',
+            scrollable: true,
             flex: 3
         }]
+    },{
+        xtype: 'splitter'
     },{
         xtype: 'files-editorcontainer',
         flex: 1,
