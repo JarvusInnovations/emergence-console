@@ -25,25 +25,19 @@ Ext.define('EmergenceConsole.controller.Sites', {
 
     refs: {
         'appViewport' : 'app-viewport',
-        'console' : 'sites-container',
-        'host' : '[name=Host]'
+        'sitesContainer' : 'sites-container',
+        'hostField' : 'field[name=Host]'
     },
     
     onLaunch: function() {
         var me = this;
-        me.getHost().setValue(EmergenceConsole.proxy.API.getHost());
-    },
-     
-    onSiteSelected: function() {
-        EmergenceConsole.proxy.API.setHost(this.getSites().value);
-        this.redirectTo('sites/files');
+        me.getHostField().setValue(EmergenceConsole.proxy.API.getHost());
     },
 
     // route handlers
     showSitesConsole: function() {
         var me = this;
-
-        me.getAppViewport().getLayout().setActiveItem(me.getConsole());
+        me.getAppViewport().getLayout().setActiveItem(me.getSiteContainer());
     },
 
     onMenuButtonClick: function(button) {
@@ -55,6 +49,7 @@ Ext.define('EmergenceConsole.controller.Sites', {
     },
     
     onUpdateHostClick: function(button) {
-        location.search='?apiHost='+this.getHost();
+        var me = this;
+        location.search='?apiHost='+me.getHostField().getValue();
     }
 });
