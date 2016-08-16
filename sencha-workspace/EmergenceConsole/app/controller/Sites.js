@@ -10,6 +10,9 @@ Ext.define('EmergenceConsole.controller.Sites', {
     control: {
         'sites-menu button': {
             'click': 'onMenuButtonClick'
+        },
+        'sites-toolbar button[name="SetHost"]': {
+            'click': 'onUpdateHostClick'
         }
     },
 
@@ -22,7 +25,18 @@ Ext.define('EmergenceConsole.controller.Sites', {
 
     refs: {
         'appViewport' : 'app-viewport',
-        'console' : 'sites-container'
+        'console' : 'sites-container',
+        'host' : '[name=Host]'
+    },
+    
+    onLaunch: function() {
+        var me = this;
+        me.getHost().setValue(EmergenceConsole.proxy.API.getHost());
+    },
+     
+    onSiteSelected: function() {
+        EmergenceConsole.proxy.API.setHost(this.getSites().value);
+        this.redirectTo('sites/files');
     },
 
     // route handlers
@@ -38,5 +52,9 @@ Ext.define('EmergenceConsole.controller.Sites', {
         if (route) {
             this.redirectTo(route);
         }
+    },
+    
+    onUpdateHostClick: function(button) {
+        location.search='?apiHost='+this.getHost();
     }
 });

@@ -4,17 +4,12 @@ Ext.define('EmergenceConsole.view.sites.Toolbar', {
     xtype: 'sites-toolbar',
 
     items: [{
-        xtype: 'combobox',
-        fieldLabel: 'Sites',
-        labelAlign: 'right',
-        labelWidth: 48,
-        store: {
-            fields:['value','text'],
-            data: [
-                {value: 'www.google.com',  text: 'www.google.com'},
-                {value: 'www.ibm.com',  text: 'www.ibm.com'}
-            ]
-        }
+        xtype: 'textfield',
+        name: 'Host',
+    },{
+        xtype: 'button',
+        name: 'SetHost',
+        text: 'Update Host'
     },{
         xtype: 'textfield',
         name: 'Search',
