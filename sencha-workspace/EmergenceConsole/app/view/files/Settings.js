@@ -8,7 +8,9 @@ Ext.define('EmergenceConsole.view.files.Settings', {
         'Jarvus.ace.field.FontSizeComboBox',
         'Jarvus.ace.field.KeyboardHandlerComboBox',
         'Jarvus.ace.field.ShowInvisiblesCheckbox',
-        'Jarvus.ace.field.ShowGutterCheckbox'
+        'Jarvus.ace.field.ShowGutterCheckbox',
+
+        'EmergenceConsole.view.files.AceOptionMarginField'
     ],
 
     layout: 'fit',
@@ -27,6 +29,9 @@ Ext.define('EmergenceConsole.view.files.Settings', {
     items: [{
         xtype: 'form',
         padding: 16,
+        defaults: {
+            labelWidth: 100
+        },
         items: [{
             xtype: 'jarvus-ace-field-themecombobox',
             fieldLabel: 'theme'
@@ -36,6 +41,10 @@ Ext.define('EmergenceConsole.view.files.Settings', {
         },{
             xtype: 'jarvus-ace-field-keyboardhandlercombobox',
             fieldLabel: 'keyboard'
+        },{
+            xtype: 'files-aceoptionmarginfield',
+            width: 180,
+            fieldLabel: 'right margin'
         },{
             xtype: 'jarvus-ace-field-showinvisiblescheckbox'
         },{

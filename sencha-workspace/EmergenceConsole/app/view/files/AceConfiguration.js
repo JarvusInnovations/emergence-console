@@ -7,6 +7,7 @@ Ext.define('EmergenceConsole.view.files.AceConfiguration', {
             theme: 'ace/theme/chaos',
             fontSize: 14,
             highlightActiveLine: true,
+            printMarginColumn: 80,
             showPrintMargin: true,
             showInvisibles: true,
             showGutter: true
