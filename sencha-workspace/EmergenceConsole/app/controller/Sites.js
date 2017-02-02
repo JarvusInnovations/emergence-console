@@ -1,4 +1,4 @@
-/*jslint browser: true, undef: true *//*global Ext*/
+/* global EmergenceConsole */
 Ext.define('EmergenceConsole.controller.Sites', {
     extend: 'Ext.app.Controller',
 
@@ -27,20 +27,22 @@ Ext.define('EmergenceConsole.controller.Sites', {
     ],
 
     refs: {
-        'appViewport' : 'app-viewport',
-        'sitesContainer' : 'sites-container',
-        'sitesMenu' : 'sites-menu',
-        'hostField' : 'field[name=Host]'
+        'appViewport': 'app-viewport',
+        'sitesContainer': 'sites-container',
+        'sitesMenu': 'sites-menu',
+        'hostField': 'field[name=Host]'
     },
 
     onLaunch: function() {
         var me = this;
+
         me.getHostField().setValue(EmergenceConsole.proxy.API.getHost());
     },
 
     // route handlers
     showSitesConsole: function() {
         var me = this;
+
         me.getAppViewport().getLayout().setActiveItem(me.getSiteContainer());
     },
 
@@ -52,8 +54,9 @@ Ext.define('EmergenceConsole.controller.Sites', {
         }
     },
 
-    onUpdateHostClick: function(button) {
+    onUpdateHostClick: function() {
         var me = this;
+
         location.search='?apiHost='+me.getHostField().getValue();
     },
 
