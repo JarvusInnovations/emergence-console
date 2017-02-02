@@ -3,7 +3,12 @@ Ext.define('EmergenceConsole.view.sites.Menu', {
     extend: 'Ext.toolbar.Toolbar',
     xtype: 'sites-menu',
 
+    config: {
+        expanded: true
+    },
+
     defaults: {
+        xtype: 'button',
         scale: 'small',
         iconAlign: 'top'
     },
@@ -26,6 +31,11 @@ Ext.define('EmergenceConsole.view.sites.Menu', {
         text: 'Docs',
         iconCls: 'x-fa fa-info-circle',
         route: 'sites/docs'
+    }, '->', {
+        itemId: 'toggleexpanded',
+        iconCls: 'x-fa fa-long-arrow-left',
+        iconClsExpanded: 'x-fa fa-long-arrow-left',
+        iconClsCollapsed: 'x-fa fa-long-arrow-right'
     }]
 
 });
