@@ -8,9 +8,6 @@ Ext.define('EmergenceConsole.controller.Sites', {
     },
 
     control: {
-        'sites-menu': {
-            'click': 'onMenuClick'
-        },
         'sites-menu button': {
             'click': 'onMenuButtonClick'
         },
@@ -45,10 +42,6 @@ Ext.define('EmergenceConsole.controller.Sites', {
     showSitesConsole: function() {
         var me = this;
         me.getAppViewport().getLayout().setActiveItem(me.getSiteContainer());
-    },
-
-    onMenuClick: function(menu) {
-        console.log('menu-clicked');
     },
 
     onMenuButtonClick: function(button) {
