@@ -1,7 +1,7 @@
 /*jslint browser: true, undef: true *//*global Ext*/
-Ext.define('EmergenceConsole.view.files.EditorToolbar', {
+Ext.define('EmergenceConsole.view.files.Toolbar', {
     extend: 'Ext.toolbar.Toolbar',
-    xtype: 'files-editortoolbar',
+    xtype: 'files-toolbar',
 
     items: [{
         xtype: 'tbfill'
