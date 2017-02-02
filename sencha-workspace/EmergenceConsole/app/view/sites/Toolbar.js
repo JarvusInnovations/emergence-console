@@ -15,6 +15,14 @@ Ext.define('EmergenceConsole.view.sites.Toolbar', {
         name: 'Search',
         flex: 10,
         emptyText: 'Search files and commands'
+    },{
+        itemId: 'tools',
+        xtype: 'container',
+        layout: 'card',
+        items: {
+            xtype: 'container'
+        },
+        flex: 4
     }]
 
 });

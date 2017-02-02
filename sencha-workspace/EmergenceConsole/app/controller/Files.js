@@ -28,7 +28,7 @@ Ext.define('EmergenceConsole.controller.Files', {
             itemdblclick: 'onSourcesItemDblClick',
             itemcontextmenu: 'onSourcesGridContextClick'
         },
-        'files-editortoolbar button[action="settings"]': {
+        'files-toolbar button[action="settings"]': {
             click: 'onSettingsClick'
         },
         'files-editor': {
@@ -81,7 +81,7 @@ Ext.define('EmergenceConsole.controller.Files', {
         'files.OpenFilesGrid',
         'files.SourcesTreePanel',
         'files.EditorContainer',
-        'files.EditorToolbar',
+        'files.Toolbar',
         'files.Settings',
         'files.FolderContextMenu',
         'files.FileContextMenu',
@@ -92,6 +92,7 @@ Ext.define('EmergenceConsole.controller.Files', {
         'appViewport': 'app-viewport',
         'sitesContainer': 'sites-container',
         'sitesContent': 'sites-container > #content',
+        'sitesTools': 'sites-toolbar container#tools',
 
         'filesContainer': {
             selector: 'files-container',
@@ -101,6 +102,11 @@ Ext.define('EmergenceConsole.controller.Files', {
         'openFilesGrid': 'files-openfilesgrid',
         'sourcesTreePanel': 'files-sourcestreepanel',
         'editorContainer': 'files-editorcontainer',
+        'filesToolbar' : {
+            selector: 'files-toolbar',
+            xtype: 'files-toolbar',
+            autoCreate: true
+        },
         'settings' : {
             selector: 'files-settings',
             xtype: 'files-settings',
@@ -142,6 +148,7 @@ Ext.define('EmergenceConsole.controller.Files', {
 
         me.getAppViewport().setActiveItem(me.getSitesContainer());
         me.getSitesContent().setActiveItem(me.getFilesContainer());
+        me.getSitesTools().setActiveItem(me.getFilesToolbar());
     },
 
     onSourcesItemDblClick: function(view, rec) {

@@ -28,6 +28,7 @@ Ext.define('EmergenceConsole.controller.Changes', {
         'appViewport': 'app-viewport',
         'sitesContainer': 'sites-container',
         'sitesContent': 'sites-container > #content',
+        'sitesTools': 'sites-toolbar container#tools',
 
         'changesContainer': {
             selector: 'changes-container',
@@ -43,6 +44,7 @@ Ext.define('EmergenceConsole.controller.Changes', {
 
         me.getAppViewport().getLayout().setActiveItem(me.getSitesContainer());
         me.getSitesContent().setActiveItem(me.getChangesContainer());
+        me.getSitesTools().setActiveItem(0);
     },
 
     // event handlers

@@ -16,6 +16,7 @@ Ext.define('EmergenceConsole.controller.Docs', {
         'appViewport': 'app-viewport',
         'sitesContainer': 'sites-container',
         'sitesContent': 'sites-container > #content',
+        'sitesTools': 'sites-toolbar container#tools',
 
         'docsContainer': {
             selector: 'docs-container',
@@ -30,5 +31,6 @@ Ext.define('EmergenceConsole.controller.Docs', {
 
         me.getAppViewport().getLayout().setActiveItem(me.getSitesContainer());
         me.getSitesContent().setActiveItem(me.getDocsContainer());
+        me.getSitesTools().setActiveItem(0);
     }
 });
