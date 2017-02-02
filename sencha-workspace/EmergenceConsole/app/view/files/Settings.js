@@ -17,7 +17,7 @@ Ext.define('EmergenceConsole.view.files.Settings', {
     header: false,
     border: 0,
     closeAction: 'hide',
-    width: 260,
+    width: 360,
     shadow: false,
 
     listeners: {
