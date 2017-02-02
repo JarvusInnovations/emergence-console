@@ -5,11 +5,16 @@ Ext.define('EmergenceConsole.view.sites.Toolbar', {
 
     items: [{
         xtype: 'textfield',
+        width: 260,
         name: 'Host',
-    },{
-        xtype: 'button',
-        name: 'SetHost',
-        text: 'Update Host'
+        triggers: {
+            'sethost': {
+                cls: 'x-fa fa-arrow-right',
+                handler: function() {
+                    this.fireEvent('updatehost');
+                }
+            }
+        }
     },{
         xtype: 'textfield',
         name: 'Search',
@@ -22,7 +27,7 @@ Ext.define('EmergenceConsole.view.sites.Toolbar', {
         items: {
             xtype: 'container'
         },
-        flex: 4
+        flex: 2
     }]
 
 });

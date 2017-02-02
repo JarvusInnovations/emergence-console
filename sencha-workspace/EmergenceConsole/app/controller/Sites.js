@@ -14,8 +14,8 @@ Ext.define('EmergenceConsole.controller.Sites', {
         'sites-menu button#toggleexpanded': {
             'click': 'onMenuToggleExpandedClick'
         },
-        'sites-toolbar button[name="SetHost"]': {
-            'click': 'onUpdateHostClick'
+        'sites-toolbar textfield[name="Host"]': {
+            'updatehost': 'onUpdateHostClick'
         }
     },
 
