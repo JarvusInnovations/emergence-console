@@ -70,7 +70,8 @@
         "jarvus-apikit",
         "emergence-apikit",
         "jarvus-ext-actionevents",
-        "jarvus-ace"
+        "jarvus-ace",
+        "jarvus-ext-glyphs"
     ],
 
     /**
