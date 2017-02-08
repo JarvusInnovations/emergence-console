@@ -3,6 +3,10 @@ Ext.define('EmergenceConsole.view.sites.Toolbar', {
     xtype: 'sites-toolbar',
 
     items: [{
+        xtype: 'button',
+        action: 'host-list',
+        iconCls: 'x-fa fa-server'
+    }, {
         xtype: 'textfield',
         width: 260,
         name: 'Host',
