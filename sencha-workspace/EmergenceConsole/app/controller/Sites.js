@@ -57,7 +57,7 @@ Ext.define('EmergenceConsole.controller.Sites', {
     onUpdateHostClick: function() {
         var me = this;
 
-        location.search='?apiHost='+me.getHostField().getValue();
+        location.search='?apiHost='+me.getHostField().getValue().replace(/^https?:\/\//i, '');
     },
 
     onMenuToggleExpandedClick: function(toggle) {
