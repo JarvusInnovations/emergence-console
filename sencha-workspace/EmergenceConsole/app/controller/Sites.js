@@ -14,23 +14,46 @@ Ext.define('EmergenceConsole.controller.Sites', {
         'sites-menu button#toggleexpanded': {
             'click': 'onMenuToggleExpandedClick'
         },
+        'sites-toolbar button[action="host-list"]': {
+            'click': 'onHostListButtonClick'
+        },
+        'sites-hostlist grid': {
+            'boxready': 'onHostListGridBoxReady',
+            'rowdblclick': 'onHostListGridRowDblClick'
+        },
+        'sites-hostlist button[action="remember-host"]': {
+            'click': 'onRememberHostClick'
+        },
         'sites-toolbar textfield[name="Host"]': {
             'updatehost': 'onUpdateHostClick'
+        },
+        'sites-hostlist': {
+            'focusleave': 'onHostListFocusLeave'
         }
     },
 
     // controller configuration
+    stores: [
+        'sites.Hosts'
+    ],
+
     views: [
         'sites.Container',
         'sites.Toolbar',
-        'sites.Menu'
+        'sites.Menu',
+        'sites.HostList'
     ],
 
     refs: {
         'appViewport': 'app-viewport',
         'sitesContainer': 'sites-container',
         'sitesMenu': 'sites-menu',
-        'hostField': 'field[name=Host]'
+        'hostField': 'field[name=Host]',
+        'hostList': {
+            selector: 'sites-hostlist',
+            xtype: 'sites-hostlist',
+            autoCreate: true
+        }
     },
 
     onLaunch: function() {
@@ -51,6 +74,49 @@ Ext.define('EmergenceConsole.controller.Sites', {
 
         if (route) {
             this.redirectTo(route);
+        }
+    },
+
+    onHostListButtonClick: function(button) {
+        var me = this,
+            hostList = me.getHostList();
+
+        if (hostList.isVisible()) {
+            hostList.close();
+        } else {
+            hostList.showBy(button, 'tl-bl');
+        }
+    },
+
+    onHostListGridBoxReady: function(grid) {
+        var store = grid.getStore();
+
+        if (!store.isLoaded() && !store.isLoading()) {
+            store.load();
+        }
+    },
+
+    onHostListGridRowDblClick: function(grid, record) {
+        location.search='?apiHost='+record.get('host');
+    },
+
+    onRememberHostClick: function() {
+        var me = this,
+            store = me.getHostList().down('grid').getStore(),
+            host = me.getHostField().getValue();
+
+        if (store.find('host', host) === -1) {
+            store.add({
+                host: me.getHostField().getValue()
+            });
+            store.save();
+        }
+    },
+
+    // close the host list window if anything other than the host list button is clicked
+    onHostListFocusLeave: function(win, evt) {
+        if (!Ext.ComponentQuery.is(evt.toComponent, 'button[action="host-list"]')) {
+            win.close()
         }
     },
 
