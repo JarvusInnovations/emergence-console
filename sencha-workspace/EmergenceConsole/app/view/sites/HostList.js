@@ -2,6 +2,10 @@ Ext.define('EmergenceConsole.view.sites.HostList', {
     extend: 'Ext.window.Window',
     xtype: 'sites-hostlist',
 
+    requires: [
+        'Ext.grid.column.Action'
+    ],
+
     layout: 'fit',
     header: false,
     border: 0,
@@ -25,9 +29,16 @@ Ext.define('EmergenceConsole.view.sites.HostList', {
             text: 'host',
             dataIndex: 'host',
             flex: 1
+        }, {
+            xtype: 'actioncolumn',
+            width: 25,
+            items: [{
+                action: 'remove',
+                glyph: 'xf057@FontAwesome',
+                tooltip: 'Remove'
+            }]
         }],
         hideHeaders: true
     }]
-
 
 });

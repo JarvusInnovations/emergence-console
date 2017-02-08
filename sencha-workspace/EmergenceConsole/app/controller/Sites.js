@@ -19,7 +19,8 @@ Ext.define('EmergenceConsole.controller.Sites', {
         },
         'sites-hostlist grid': {
             'boxready': 'onHostListGridBoxReady',
-            'rowdblclick': 'onHostListGridRowDblClick'
+            'rowdblclick': 'onHostListGridRowDblClick',
+            'removeclick': 'onHostListGridRemoveClick'
         },
         'sites-hostlist button[action="remember-host"]': {
             'click': 'onRememberHostClick'
@@ -111,6 +112,13 @@ Ext.define('EmergenceConsole.controller.Sites', {
             });
             store.save();
         }
+    },
+
+    onHostListGridRemoveClick: function(grid, record) {
+        var store = grid.getStore();
+
+        store.remove(record);
+        store.save();
     },
 
     // close the host list window if anything other than the host list button is clicked
