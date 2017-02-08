@@ -8,6 +8,9 @@ Ext.define('EmergenceConsole.controller.Sites', {
     },
 
     control: {
+        'sites-menu': {
+            'staterestore': 'onMenuStateRestore'
+        },
         'sites-menu button': {
             'click': 'onMenuButtonClick'
         },
@@ -68,6 +71,11 @@ Ext.define('EmergenceConsole.controller.Sites', {
         var me = this;
 
         me.getAppViewport().getLayout().setActiveItem(me.getSiteContainer());
+    },
+
+
+    onMenuStateRestore: function() {
+        this.implementMenuState();
     },
 
     onMenuButtonClick: function(button) {
@@ -134,9 +142,19 @@ Ext.define('EmergenceConsole.controller.Sites', {
         location.search='?apiHost='+me.getHostField().getValue().replace(/^https?:\/\//i, '');
     },
 
-    onMenuToggleExpandedClick: function(toggle) {
+    onMenuToggleExpandedClick: function() {
+        var me = this,
+            menu = me.getSitesMenu();
+
+        menu.setExpanded(!menu.getExpanded());
+        me.implementMenuState();
+        menu.fireEvent('changeexpanded');
+    },
+
+    implementMenuState: function() {
         var me = this,
             menu = me.getSitesMenu(),
+            toggle = menu.down('button#toggleexpanded'),
             expanded = menu.getExpanded(),
             buttons = menu.query('button'),
             buttonsLength = buttons.length,
@@ -146,13 +164,12 @@ Ext.define('EmergenceConsole.controller.Sites', {
         for (; i<buttonsLength; i++) {
             button = buttons[i];
             if (expanded) {
-                button.setText('');
-                toggle.setIconCls(toggle.iconClsCollapsed);
-            } else {
                 button.setText(button.initialConfig.text);
                 toggle.setIconCls(toggle.iconClsExpanded);
+            } else {
+                button.setText('');
+                toggle.setIconCls(toggle.iconClsCollapsed);
             }
         }
-        menu.setExpanded(!expanded);
     }
 });

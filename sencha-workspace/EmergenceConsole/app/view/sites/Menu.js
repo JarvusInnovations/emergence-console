@@ -2,6 +2,14 @@ Ext.define('EmergenceConsole.view.sites.Menu', {
     extend: 'Ext.toolbar.Toolbar',
     xtype: 'sites-menu',
 
+    mixins: [
+        'Ext.state.Stateful'
+    ],
+
+    stateful: true,
+    stateId: 'sites-menu',
+    stateEvents: ['changeexpanded'],
+
     config: {
         expanded: true
     },
@@ -35,6 +43,18 @@ Ext.define('EmergenceConsole.view.sites.Menu', {
         iconCls: 'x-fa fa-long-arrow-left',
         iconClsExpanded: 'x-fa fa-long-arrow-left',
         iconClsCollapsed: 'x-fa fa-long-arrow-right'
-    }]
+    }],
+
+    // @private
+    getState: function() {
+        return { expanded: this.getExpanded() };
+    },
+
+    // @private
+    applyState: function(state) {
+        if (state && state.hasOwnProperty('expanded')) {
+            this.setExpanded(state.expanded);
+        }
+    }
 
 });
