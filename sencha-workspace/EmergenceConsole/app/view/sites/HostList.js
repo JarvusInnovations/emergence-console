@@ -31,11 +31,10 @@ Ext.define('EmergenceConsole.view.sites.HostList', {
             flex: 1
         }, {
             xtype: 'actioncolumn',
-            width: 25,
+            width: 22,
             items: [{
-                action: 'remove',
-                glyph: 'xf057@FontAwesome',
-                tooltip: 'Remove'
+                iconCls: 'x-fa fa-times',
+                action: 'remove'
             }]
         }],
         hideHeaders: true
