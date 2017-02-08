@@ -31,6 +31,9 @@ Ext.define('EmergenceConsole.controller.Files', {
         'files-toolbar button[action="settings"]': {
             click: 'onSettingsClick'
         },
+        'files-settings': {
+            focusleave: 'onSettingsFocusLeave'
+        },
         'files-editor': {
             activate: 'onEditorActivate',
             saverequest: 'onEditorSaveRequest',
@@ -224,6 +227,13 @@ Ext.define('EmergenceConsole.controller.Files', {
             y = el.getY()+el.getHeight();
             settings.showAt(x, y);
 
+        }
+    },
+
+    // close the host list window if anything other than the host list button is clicked
+    onSettingsFocusLeave: function(win, evt) {
+        if (!Ext.ComponentQuery.is(evt.toComponent, 'button[action="settings"]')) {
+            win.close()
         }
     },
 

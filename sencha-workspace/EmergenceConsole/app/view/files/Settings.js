@@ -20,12 +20,6 @@ Ext.define('EmergenceConsole.view.files.Settings', {
     width: 360,
     shadow: false,
 
-    listeners: {
-        focusleave: function(me) {
-            me.close();
-        }
-    },
-
     items: [{
         xtype: 'form',
         padding: 16,
