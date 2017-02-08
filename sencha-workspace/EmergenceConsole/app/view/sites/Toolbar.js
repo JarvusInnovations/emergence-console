@@ -1,4 +1,3 @@
-/*jslint browser: true, undef: true *//*global Ext*/
 Ext.define('EmergenceConsole.view.sites.Toolbar', {
     extend: 'Ext.toolbar.Toolbar',
     xtype: 'sites-toolbar',
@@ -15,12 +14,12 @@ Ext.define('EmergenceConsole.view.sites.Toolbar', {
                 }
             }
         }
-    },{
+    }, {
         xtype: 'textfield',
         name: 'Search',
         flex: 10,
         emptyText: 'Search files and commands'
-    },{
+    }, {
         itemId: 'tools',
         xtype: 'container',
         layout: 'card',
