@@ -5,6 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
+    <!-- TODO: Move this scrollbar styling to the theme -->
+    <style type="text/css">
+        ::-webkit-scrollbar {
+          width: 12px;
+          height: 12px;
+        }
+        ::-webkit-scrollbar-button {
+          width: 0px;
+          height: 0px;
+        }
+        ::-webkit-scrollbar-thumb {
+          background: #222326;
+          border: 0px none #ffffff;
+          border-radius: 0px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: #222326;
+        }
+        ::-webkit-scrollbar-thumb:active {
+          background: #222326;
+        }
+        ::-webkit-scrollbar-track {
+          background: #000000;
+          border: 0px groove #ffffff;
+          border-radius: 0px;
+        }
+        ::-webkit-scrollbar-track:hover {
+          background: #000000;
+        }
+        ::-webkit-scrollbar-track:active {
+          background: #000000;
+        }
+        ::-webkit-scrollbar-corner {
+          background: transparent;
+        }
+    </style>
+
     <title>EmergenceConsole</title>
 
     <!--
@@ -45,7 +82,7 @@
         };
     </script>
     -->
-    
+
     <!-- The line below must be kept intact for Sencha Cmd to build your application -->
     <script id="microloader" data-app="5416995c-c940-44e7-b660-de6ef4ccd73c" type="text/javascript" src="bootstrap.js"></script>
 
